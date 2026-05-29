@@ -56,7 +56,8 @@
       "zellij-install": "./scripts/install-zellij-autostart.sh",
       "work": "./scripts/work.sh",
       "zsh-install": "./scripts/install-zsh.sh",
-      "work-reset": "./scripts/work.sh --reset"
+      "work-reset": "./scripts/work.sh --reset",
+      "work-update": "./scripts/work-update.sh"
     }
   }
 }

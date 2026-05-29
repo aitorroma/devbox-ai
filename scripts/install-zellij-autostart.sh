@@ -12,6 +12,7 @@ $MARK_START
 export COCKPIT_HOME="$ROOT"
 alias work='devbox run -c "\$COCKPIT_HOME" -- work'
 alias work-reset='devbox run -c "\$COCKPIT_HOME" -- work-reset'
+alias work-update='devbox run -c "\$COCKPIT_HOME" -- work-update'
 if [[ -o interactive ]] && [[ -t 0 ]] && [[ -t 1 ]] && [[ -z "\$ZELLIJ" ]] && [[ -z "\$ZELLIJ_AUTO_STARTED" ]] && [[ -z "\$TMUX" ]] && [[ "\$TERM" != "dumb" ]] && command -v devbox >/dev/null 2>&1 && [[ -d "\$COCKPIT_HOME" ]]; then
   export ZELLIJ_AUTO_STARTED=1
   cd "\$COCKPIT_HOME"

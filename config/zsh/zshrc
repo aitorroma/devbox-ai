@@ -47,6 +47,7 @@ alias work='devbox run -c "$COCKPIT_HOME" -- work'
 alias zwork='devbox run -c "$COCKPIT_HOME" -- work'
 alias agent='devbox run -c "$COCKPIT_HOME" -- agent'
 alias doctor='devbox run -c "$COCKPIT_HOME" -- doctor'
+alias work-update='devbox run -c "$COCKPIT_HOME" -- work-update'
 
 # Clear terminal title inside Zellij panes.
 case "$TERM" in

@@ -74,3 +74,13 @@ Para aplicar cambios de layout a una sesión existente:
 ```bash
 devbox run -c "$PWD" -- work-reset
 ```
+
+## Actualizar cockpit
+
+Para traer la última versión del repo, reinstalar la shell/autostart y recrear Zellij:
+
+```bash
+work-update
+# o, si los aliases aún no están cargados:
+devbox run -c /root/cookpit -- work-update
+```
