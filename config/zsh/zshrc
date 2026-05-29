@@ -67,17 +67,29 @@ if [[ -t 0 && -t 1 ]]; then
 fi
 [[ -f "$_devbox_share/fzf/completion.zsh" ]] && source "$_devbox_share/fzf/completion.zsh"
 
-# Prompt: Powerlevel10k if available, small fallback otherwise.
-export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-[[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
-if [[ -f "$_devbox_share/zsh-powerlevel10k/powerlevel10k.zsh-theme" ]]; then
-  source "$_devbox_share/zsh-powerlevel10k/powerlevel10k.zsh-theme"
-else
-  autoload -Uz vcs_info
-  precmd() { vcs_info }
-  zstyle ':vcs_info:git:*' formats ' %F{magenta} %b%f'
-  PROMPT='%F{cyan}%n@%m%f %F{blue}%~%f${vcs_info_msg_0_} %# '
-fi
+# Prompt: compact cockpit style.
+# Looks like:
+# ╭─ ♞ 🏠 ~
+# ╰─❯ command
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' formats ' %F{green} %b%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{yellow} %b|%a%f'
+
+_cockpit_prompt_preexec() {
+  print -Pn "\e]0;cockpit: %~ — $1\a"
+}
+
+_cockpit_prompt_precmd() {
+  vcs_info
+  local os_icon="♞"
+  local place_icon=""
+  [[ "$PWD" == "$HOME" ]] && place_icon=""
+  PROMPT=$'%F{238}╭─%f %F{blue}'"$os_icon"$'%f %F{cyan}'"$place_icon"$'%f %F{39}%~%f${vcs_info_msg_0_}
+%F{238}╰─%f%F{green}❯%f '
+}
+
+precmd_functions+=(_cockpit_prompt_precmd)
+preexec_functions+=(_cockpit_prompt_preexec)
 unset _devbox_share
 
 # Tool integrations

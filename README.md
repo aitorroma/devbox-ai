@@ -141,7 +141,7 @@ devbox run -c "$PWD" -- work-reset
 
 ## Zsh portable
 
-La configuración zsh incluye Powerlevel10k, autosuggestions, syntax highlighting, autocomplete, fzf, zoxide, atuin, eza, bat y carapace. No copia secretos ni rutas locales.
+La configuración zsh incluye un prompt compacto custom como el de tu terminal actual, autosuggestions, syntax highlighting, autocomplete, fzf, zoxide, atuin, eza, bat y carapace. No copia secretos ni rutas locales.
 
 Reinstalar solo zsh:
 

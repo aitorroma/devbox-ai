@@ -19,7 +19,6 @@ Este cockpit instala herramientas en dos capas:
 | `zsh-autocomplete` | Autocompletado proactivo para Zsh. |
 | `zsh-autosuggestions` | Sugerencias de comandos basadas en historial. |
 | `zsh-syntax-highlighting` | Colorea comandos válidos/erróneos mientras escribes. |
-| `zsh-powerlevel10k` | Tema de prompt para Zsh. |
 | `eza` | Reemplazo moderno de `ls`. |
 | `bat` | Reemplazo de `cat` con syntax highlighting. |
 
