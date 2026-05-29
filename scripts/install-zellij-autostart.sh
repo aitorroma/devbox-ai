@@ -2,6 +2,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CONFIG_DIR="${COCKPIT_DEVBOX_CONFIG:-${DEVBOX_PROJECT_ROOT:-$ROOT}}"
+PROFILE="${COCKPIT_PROFILE:-base}"
 mkdir -p "$HOME/.config/zellij/layouts"
 cp "$ROOT/config/zellij/layouts/dev.kdl.template" "$HOME/.config/zellij/layouts/dev.kdl.template"
 
@@ -10,13 +12,17 @@ MARK_END='# <<< vps-cockpit zellij <<<'
 BLOCK=$(cat <<EOF2
 $MARK_START
 export COCKPIT_HOME="$ROOT"
-alias work='devbox run -c "\$COCKPIT_HOME" -- work'
-alias work-reset='devbox run -c "\$COCKPIT_HOME" -- work-reset'
-alias work-update='devbox run -c "\$COCKPIT_HOME" -- work-update'
-if [[ -o interactive ]] && [[ -t 0 ]] && [[ -t 1 ]] && [[ -z "\$ZELLIJ" ]] && [[ -z "\$ZELLIJ_AUTO_STARTED" ]] && [[ -z "\$TMUX" ]] && [[ "\$TERM" != "dumb" ]] && command -v devbox >/dev/null 2>&1 && [[ -d "\$COCKPIT_HOME" ]]; then
+export COCKPIT_DEVBOX_CONFIG="$CONFIG_DIR"
+export COCKPIT_PROFILE="$PROFILE"
+alias work='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- work'
+alias work-reset='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- work-reset'
+alias work-update='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- work-update'
+alias doctor='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- doctor'
+alias profile-info='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- profile-info'
+if [[ -o interactive ]] && [[ -t 0 ]] && [[ -t 1 ]] && [[ -z "\$ZELLIJ" ]] && [[ -z "\$ZELLIJ_AUTO_STARTED" ]] && [[ -z "\$TMUX" ]] && [[ "\$TERM" != "dumb" ]] && command -v devbox >/dev/null 2>&1 && [[ -d "\$COCKPIT_HOME" ]] && [[ -d "\$COCKPIT_DEVBOX_CONFIG" ]]; then
   export ZELLIJ_AUTO_STARTED=1
   cd "\$COCKPIT_HOME"
-  exec devbox run -c "\$COCKPIT_HOME" -- work
+  exec devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- work
 fi
 $MARK_END
 EOF2

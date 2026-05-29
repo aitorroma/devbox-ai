@@ -1,10 +1,17 @@
 # Herramientas incluidas
 
-Este cockpit instala herramientas en dos capas:
+Este cockpit instala herramientas en perfiles para ahorrar disco:
+
+- **base**: cockpit/shell mínimo.
+- **ai**: `base` + Node/Pi/gentle-ai/Codex/Claude/RTK.
+- **devops**: `base` + herramientas de infra/DevOps, sin agentes IA.
+- **full**: `ai` + `devops`.
+
+Capas de instalación:
 
 - **Devbox/Nix**: herramientas reproducibles del sistema, disponibles dentro de `devbox shell`, `devbox run ...` y el workspace `work`.
-- **npm global en `$HOME/.npm-global`**: CLIs de agentes IA (`pi`, `codex`, `claude`) para uso diario rápido.
-- **binarios en `$HOME/.local/bin`**: herramientas externas portables como `rtk`.
+- **npm global en `$HOME/.npm-global`**: CLIs de agentes IA (`pi`, `codex`, `claude`) en perfiles `ai`/`full`.
+- **binarios en `$HOME/.local/bin`**: herramientas externas portables como `rtk` en perfiles `ai`/`full`.
 
 ## Cockpit y shell
 
@@ -23,7 +30,7 @@ Este cockpit instala herramientas en dos capas:
 | `eza` | Reemplazo moderno de `ls`. |
 | `bat` | Reemplazo de `cat` con syntax highlighting. |
 
-## Agentes IA
+## Agentes IA (`ai` / `full`)
 
 | Tool | Para qué sirve |
 |---|---|
@@ -34,7 +41,7 @@ Este cockpit instala herramientas en dos capas:
 | `claude` | Claude Code CLI. |
 | `rtk` | Rust Token Killer: proxy/compactador de salida de comandos para reducir tokens enviados al agente. |
 
-## Git, GitHub y dotfiles
+## Git, GitHub y dotfiles (`devops` / `full`, salvo `git` que está en `base`)
 
 | Tool | Para qué sirve |
 |---|---|
@@ -45,7 +52,7 @@ Este cockpit instala herramientas en dos capas:
 | `chezmoi` | Gestión portable de dotfiles. |
 | `pre-commit` | Framework para hooks de calidad antes de commit. |
 
-## Datos, texto y automatización
+## Datos, texto y automatización (`devops` / `full`)
 
 | Tool | Para qué sirve |
 |---|---|
@@ -62,15 +69,15 @@ Este cockpit instala herramientas en dos capas:
 
 | Tool | Para qué sirve |
 |---|---|
-| `node` / `npm` | Runtime y package manager JavaScript/TypeScript. |
-| `python3.12` | Python 3.12. |
-| `pip` | Instalador de paquetes Python. |
-| `uv` | Gestor rápido de proyectos/paquetes Python. |
-| `go` | Toolchain Go. |
-| `rustup` | Gestor de toolchains Rust. |
-| `gcc` | Compilador C/C++. |
+| `node` / `npm` | Runtime y package manager JavaScript/TypeScript (`ai`/`full`). |
+| `python3.12` | Python 3.12 (`base`, necesario para scripts del cockpit). |
+| `pip` | Instalador de paquetes Python (`devops`/`full`). |
+| `uv` | Gestor rápido de proyectos/paquetes Python (`devops`/`full`). |
+| `go` | Toolchain Go (`devops`/`full`). |
+| `rustup` | Gestor de toolchains Rust (`devops`/`full`). |
+| `gcc` | Compilador C/C++ (`devops`/`full`). |
 
-## Contenedores, Kubernetes e infraestructura
+## Contenedores, Kubernetes e infraestructura (`devops` / `full`)
 
 | Tool | Para qué sirve |
 |---|---|
@@ -83,7 +90,7 @@ Este cockpit instala herramientas en dos capas:
 | `tofu` (`opentofu`) | Fork open-source de Terraform. |
 | `ansible` | Automatización/configuración remota por SSH. |
 
-## Seguridad, secretos y criptografía
+## Seguridad, secretos y criptografía (`devops` / `full`)
 
 | Tool | Para qué sirve |
 |---|---|
@@ -91,7 +98,7 @@ Este cockpit instala herramientas en dos capas:
 | `age` | Cifrado moderno de archivos. |
 | `sops` | Gestión de secretos cifrados en YAML/JSON/env files. |
 
-## Observabilidad y sistema
+## Observabilidad y sistema (`devops` / `full`)
 
 | Tool | Para qué sirve |
 |---|---|
@@ -100,7 +107,7 @@ Este cockpit instala herramientas en dos capas:
 | `duf` | Uso de disco por filesystem, más legible que `df`. |
 | `ncdu` | Analizador interactivo de uso de disco por directorio. |
 
-## Red y diagnóstico
+## Red y diagnóstico (`devops` / `full`)
 
 | Tool | Para qué sirve |
 |---|---|
@@ -112,7 +119,7 @@ Este cockpit instala herramientas en dos capas:
 | `tcpdump` | Captura de paquetes. |
 | `mtr` | Diagnóstico de rutas/red combinando ping + traceroute. |
 
-## Calidad de shell/código
+## Calidad de shell/código (`devops` / `full`)
 
 | Tool | Para qué sirve |
 |---|---|
@@ -122,14 +129,14 @@ Este cockpit instala herramientas en dos capas:
 ## Comandos de verificación
 
 ```bash
-devbox run doctor
+devbox run -c /root/cookpit/profiles/ai -- doctor
 ```
 
 O checks puntuales:
 
 ```bash
-devbox run -c /root/cookpit -- ansible --version
-devbox run -c /root/cookpit -- lazygit --version
-devbox run -c /root/cookpit -- chezmoi --version
-devbox run -c /root/cookpit -- rtk gain
+devbox run -c /root/cookpit/profiles/devops -- ansible --version
+devbox run -c /root/cookpit/profiles/devops -- lazygit --version
+devbox run -c /root/cookpit/profiles/devops -- chezmoi --version
+devbox run -c /root/cookpit/profiles/ai -- rtk gain
 ```

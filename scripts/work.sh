@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${DEVBOX_PROJECT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+ROOT="${COCKPIT_HOME:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+CONFIG_DIR="${COCKPIT_DEVBOX_CONFIG:-${DEVBOX_PROJECT_ROOT:-$ROOT}}"
 TEMPLATE="$ROOT/config/zellij/layouts/dev.kdl.template"
 LAYOUT="$ROOT/.devbox/gen/zellij-dev.kdl"
 SESSION="${COCKPIT_ZELLIJ_SESSION:-dev}"
@@ -63,7 +64,7 @@ if [[ -n "${ZELLIJ:-}" ]]; then
    puede interpretar la creación de layout como una tab nueva.
 
    Hazlo desde fuera de Zellij:
-     ZELLIJ_AUTO_STARTED=1 bash -lc 'cd "$ROOT" && devbox run -c "$ROOT" -- work-reset'
+     ZELLIJ_AUTO_STARTED=1 bash -lc 'cd "$ROOT" && devbox run -c "$CONFIG_DIR" -- work-reset'
 MSG
     exit 2
   fi

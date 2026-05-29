@@ -1,0 +1,55 @@
+{
+  "packages": [
+    "git",
+    "curl",
+    "unzip",
+    "neovim@latest",
+    "ripgrep",
+    "fd",
+    "zellij@latest",
+    "zsh@latest",
+    "fzf",
+    "zoxide",
+    "atuin",
+    "bat",
+    "eza",
+    "carapace",
+    "zsh-autocomplete",
+    "zsh-autosuggestions",
+    "zsh-syntax-highlighting",
+    "python312",
+    "nodejs@22"
+  ],
+  "env": {
+    "NPM_CONFIG_PREFIX": "$HOME/.npm-global"
+  },
+  "shell": {
+    "init_hook": [
+      "export COCKPIT_PROFILE=ai",
+      "export COCKPIT_ENABLE_AI=1",
+      "export COCKPIT_ENABLE_DEVOPS=0",
+      "export COCKPIT_HOME=\"$(cd ../.. && pwd)\"",
+      "export COCKPIT_DEVBOX_CONFIG=\"$(pwd)\"",
+      "export PATH=$HOME/.npm-global/bin:$PATH",
+      "export PATH=$HOME/.local/bin:$PATH",
+      "echo '🚀 VPS cockpit environment ready (ai)'"
+    ],
+    "scripts": {
+      "setup": "../../scripts/setup.sh",
+      "gentle-install": "gentle-ai install --agent pi",
+      "pi-plugins": "../../scripts/install-pi-plugins.sh",
+      "doctor": "../../scripts/doctor.sh",
+      "agent": "pi",
+      "mcp-render": "../../scripts/render-mcp.sh",
+      "zellij-install": "../../scripts/install-zellij-autostart.sh",
+      "work": "../../scripts/work.sh",
+      "zsh-install": "../../scripts/install-zsh.sh",
+      "work-reset": "../../scripts/work.sh --reset",
+      "work-update": "../../scripts/work-update.sh",
+      "bootstrap": "../../scripts/bootstrap.sh",
+      "ai-clis": "../../scripts/install-ai-clis.sh",
+      "rtk-install": "../../scripts/install-rtk.sh",
+      "profile-info": "../../scripts/profile-info.sh"
+    }
+  }
+}

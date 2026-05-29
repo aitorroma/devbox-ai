@@ -4,6 +4,11 @@ mkdir -p "$HOME/.npm-global" "$HOME/.local/bin"
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"
 
+if [[ "${COCKPIT_ENABLE_AI:-0}" != "1" ]]; then
+  echo "ℹ️  Perfil ${COCKPIT_PROFILE:-base}: sin agentes IA. Salto Pi/gentle-ai/Codex/Claude/RTK."
+  exit 0
+fi
+
 echo '📦 Instalando/actualizando Pi...'
 npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 

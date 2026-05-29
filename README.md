@@ -1,33 +1,24 @@
 # Devbox AI Cockpit
 
-Cockpit portable para trabajar por SSH en un VPS con:
+Cockpit portable para trabajar por SSH en un VPS con perfiles seleccionables para no instalar más de lo necesario.
 
 - **Devbox/Nix** para reproducibilidad
 - **Zellij** como workspace persistente
-- **Zsh** configurado tipo workstation
-- **Pi + gentle-ai + Engram** como agente con memoria
-- **Codex CLI** y **Claude Code CLI** instalados por npm
-- **RTK (Rust Token Killer)** para comprimir outputs de shell y ahorrar tokens
+- **Zsh** con prompt compacto custom
+- **Perfiles** `base`, `ai`, `devops` y `full`
+- **Pi + gentle-ai + Engram**, **Codex CLI**, **Claude Code CLI** y **RTK** solo en perfiles IA
 - Plantillas MCP para **Engram**, **Coolify**, **Context7** y **GitHub**
 
-## Toolpack incluido
+## Perfiles disponibles
 
-Además de Node, Zellij, Zsh, Pi, Codex, Claude y RTK, Devbox provisiona un pack amplio de herramientas:
+| Perfil | Qué instala | Cuándo usarlo |
+|---|---|---|
+| `base` | Shell/cockpit mínimo: Zellij, Zsh, Neovim, búsqueda, prompt y Python para scripts. | VPS ligero o solo terminal portable. |
+| `ai` | `base` + Node.js + Pi/gentle-ai + Codex + Claude + RTK. | Cockpit IA sin toolpack DevOps pesado. **Recomendado**. |
+| `devops` | `base` + toolpack DevOps/infra, sin agentes IA. | VPS para operar infra sin CLIs IA. |
+| `full` | `ai` + `devops`. | Quieres absolutamente todo y tienes disco/RAM de sobra. |
 
-```text
-jq yq gh lazygit delta chezmoi
-duf btop htop ncdu tree wget rsync openssl
-age sops direnv just make gcc
-python312 python312Packages.pip uv go rustup
-docker-client docker-compose kubernetes-helm kubectl k9s
-terraform opentofu ansible
-httpie xh nmap dnsutils whois tcpdump mtr
-pre-commit shellcheck shfmt
-```
-
-Todo esto vive en el entorno Devbox/Nix; no ensucia `/usr/local`. Los binarios de agentes (`pi`, `codex`, `claude`) viven en `$HOME/.npm-global` y `rtk` en `$HOME/.local/bin`, ambos dentro de tu HOME portable.
-
-Ver [TOOLS.md](./TOOLS.md) para saber qué hace cada herramienta.
+La idea es que normalmente uses `ai` en el VPS de desarrollo y solo instales `devops` o `full` cuando realmente necesites Docker/K8s/Terraform/Ansible/etc.
 
 ## Instalación rápida en VPS nuevo
 
@@ -36,8 +27,22 @@ apt update && apt install -y curl git bash
 curl -fsSL https://get.jetify.com/devbox | bash
 git clone https://github.com/aitorroma/devbox-ai.git /root/cookpit
 cd /root/cookpit
-devbox run bootstrap
 ```
+
+Elige perfil:
+
+```bash
+# IA: cockpit + agentes, sin toolpack DevOps pesado
+devbox run -c /root/cookpit/profiles/ai -- bootstrap
+
+# Solo DevOps: cockpit + herramientas infra, sin agentes IA
+devbox run -c /root/cookpit/profiles/devops -- bootstrap
+
+# Todo
+devbox run -c /root/cookpit/profiles/full -- bootstrap
+```
+
+Atajo: desde la raíz, `devbox run bootstrap` instala el perfil `ai` por defecto.
 
 Al terminar, recarga shell o reconecta por SSH:
 
@@ -46,24 +51,79 @@ source ~/.bashrc
 work-reset
 ```
 
-El wizard interactivo de gentle-ai es opcional y se ejecuta aparte:
+El wizard interactivo de gentle-ai es opcional y solo aplica a `ai`/`full`:
 
 ```bash
 gentle-install
 # o
-devbox run -c /root/cookpit -- gentle-install
+devbox run -c /root/cookpit/profiles/ai -- gentle-install
 ```
 
-## Instalación manual paso a paso
+## Cambiar de perfil
+
+Reinstala aliases/autostart con el perfil elegido:
 
 ```bash
-cd /root/cookpit
-devbox run setup        # instala Pi, gentle-ai, Codex, Claude y RTK
-devbox run zsh-install
-devbox run pi-plugins
-devbox run mcp-render
-devbox run zellij-install
+# Cambiar a IA
+devbox run -c /root/cookpit/profiles/ai -- bootstrap
+
+# Cambiar a DevOps
+devbox run -c /root/cookpit/profiles/devops -- bootstrap
+
+# Cambiar a full
+devbox run -c /root/cookpit/profiles/full -- bootstrap
 ```
+
+Después de cambiar, reconecta por SSH o ejecuta:
+
+```bash
+source ~/.bashrc
+work-reset
+```
+
+Ver perfil activo:
+
+```bash
+profile-info
+# o
+devbox run -c /root/cookpit/profiles/ai -- profile-info
+```
+
+## Toolpack por perfil
+
+### `base`
+
+```text
+git curl unzip neovim ripgrep fd zellij zsh fzf zoxide atuin
+bat eza carapace zsh-autocomplete zsh-autosuggestions
+zsh-syntax-highlighting python312
+```
+
+### `ai`
+
+`base` +:
+
+```text
+nodejs@22
+Pi gentle-ai Codex Claude RTK instalados en $HOME
+```
+
+### `devops`
+
+`base` +:
+
+```text
+jq yq gh lazygit delta chezmoi
+duf btop htop ncdu tree wget rsync openssl
+age sops direnv just make gcc
+python312Packages.pip uv go rustup
+docker-client docker-compose kubernetes-helm kubectl k9s
+terraform opentofu ansible
+httpie xh nmap dnsutils whois tcpdump mtr
+pre-commit shellcheck shfmt
+```
+
+Ver [TOOLS.md](./TOOLS.md) para saber qué hace cada herramienta.
 
 ## Layout de Zellij
 
@@ -75,7 +135,7 @@ El workspace intencionalmente tiene **dos tabs**:
 Si cambias el layout o ves tabs antiguas, recrea la sesión desde fuera de Zellij:
 
 ```bash
-devbox run -c /root/cookpit -- work-reset
+devbox run -c /root/cookpit/profiles/ai -- work-reset
 ```
 
 ## Comandos diarios
@@ -83,32 +143,37 @@ devbox run -c /root/cookpit -- work-reset
 ```bash
 work          # abre/adjunta Zellij dev
 work-reset    # recrea la sesión dev y reaplica layout
-work-update   # git pull + reinstala shell/autostart + actualiza cockpit
-doctor        # verifica herramientas/versiones
+work-update   # git pull + reinstala shell/autostart + actualiza perfil activo
+doctor        # verifica herramientas/versiones del perfil activo
+profile-info  # muestra perfil y rutas activas
+```
+
+En perfiles `ai`/`full` también:
+
+```bash
 agent         # lanza Pi
 codex         # lanza Codex CLI
 claude        # lanza Claude Code CLI
 rtk gain      # muestra ahorro acumulado de tokens
 ```
 
-Si los aliases aún no están cargados:
+Si los aliases aún no están cargados, usa el perfil explícito:
 
 ```bash
-devbox run -c /root/cookpit -- work
-devbox run -c /root/cookpit -- work-reset
-devbox run -c /root/cookpit -- work-update
-devbox run -c /root/cookpit -- doctor
-devbox run -c /root/cookpit -- agent
-devbox run -c /root/cookpit -- rtk gain
+devbox run -c /root/cookpit/profiles/ai -- work
+devbox run -c /root/cookpit/profiles/ai -- work-update
+devbox run -c /root/cookpit/profiles/devops -- doctor
 ```
 
 ## Secretos por VPS
+
+Solo para perfiles IA:
 
 ```bash
 cd /root/cookpit
 cp .env.example .env
 nano .env
-devbox run mcp-render
+devbox run -c /root/cookpit/profiles/ai -- mcp-render
 ```
 
 `.env` no se commitea. La plantilla portable está en `config/pi/mcp.template.json`.
@@ -119,10 +184,10 @@ devbox run mcp-render
 work-update
 ```
 
-Si estás dentro de Zellij y te avisa que no puede matar la sesión actual, sal/reconecta o ejecuta desde fuera:
+Si estás dentro de Zellij y te avisa que no puede matar la sesión actual, sal/reconecta o ejecuta desde fuera con el perfil activo:
 
 ```bash
-devbox run -c /root/cookpit -- work-reset
+devbox run -c /root/cookpit/profiles/ai -- work-reset
 ```
 
 ## Recuperar SSH si el autostart falla
@@ -138,31 +203,23 @@ Dentro:
 ```bash
 cd /root/cookpit
 git pull
-devbox run -c "$PWD" -- zellij-install
-devbox run -c "$PWD" -- work-reset
+devbox run -c /root/cookpit/profiles/ai -- zellij-install
+devbox run -c /root/cookpit/profiles/ai -- work-reset
 ```
 
 ## Zsh portable
 
 La configuración zsh incluye un prompt compacto custom como el de tu terminal actual, autosuggestions, syntax highlighting, autocomplete, fzf, zoxide, atuin, eza, bat y carapace. No copia secretos ni rutas locales.
 
-Reinstalar solo zsh:
+Reinstalar solo zsh para un perfil:
 
 ```bash
-devbox run -c /root/cookpit -- zsh-install
-```
-
-## Verificación
-
-```bash
-doctor
-pi
-/gentle-ai:status
+devbox run -c /root/cookpit/profiles/ai -- zsh-install
 ```
 
 ## RTK para ahorrar tokens
 
-RTK se instala desde `rtk-ai/rtk` y queda en `$HOME/.local/bin`. El setup ejecuta también los hooks globales para Claude/Copilot y Codex:
+RTK se instala solo en perfiles `ai`/`full`, desde `rtk-ai/rtk`, y queda en `$HOME/.local/bin`. El setup ejecuta también los hooks globales para Claude/Copilot y Codex:
 
 ```bash
 rtk init -g
@@ -179,22 +236,24 @@ rtk gain
 Reinstalar/actualizar solo RTK:
 
 ```bash
-devbox run -c /root/cookpit -- rtk-install
+devbox run -c /root/cookpit/profiles/ai -- rtk-install
 ```
 
 ## AI CLIs
 
-El bootstrap instala también:
+Los perfiles `ai`/`full` instalan:
 
 ```bash
 codex --version
 claude --version
+pi --version
+gentle-ai --version
 ```
 
 Para reinstalarlos/actualizarlos manualmente:
 
 ```bash
-devbox run -c /root/cookpit -- ai-clis
+devbox run -c /root/cookpit/profiles/ai -- ai-clis
 ```
 
 ## Evitar tabs duplicadas en Zellij
@@ -204,12 +263,12 @@ No ejecutes `work` o `work-reset` desde dentro de Zellij para recrear el layout:
 Para resetear desde una shell normal fuera de Zellij:
 
 ```bash
-ZELLIJ_AUTO_STARTED=1 bash -lc 'cd /root/cookpit && devbox run -c /root/cookpit -- work-reset'
+ZELLIJ_AUTO_STARTED=1 bash -lc 'cd /root/cookpit && devbox run -c /root/cookpit/profiles/ai -- work-reset'
 ```
 
 Para borrar una sesión vieja/EXITED manualmente:
 
 ```bash
-devbox run -c /root/cookpit -- zellij delete-session --force dev
-devbox run -c /root/cookpit -- work
+devbox run -c /root/cookpit/profiles/ai -- zellij delete-session --force dev
+devbox run -c /root/cookpit/profiles/ai -- work
 ```
