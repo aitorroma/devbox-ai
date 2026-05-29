@@ -12,7 +12,11 @@ Cockpit portable para trabajar por SSH en un VPS con perfiles seleccionables par
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/1161930.svg)](https://asciinema.org/a/1161930)
+<a href="https://asciinema.org/a/1161930" target="_blank" rel="noopener noreferrer">
+  <img src="https://asciinema.org/a/1161930.svg" alt="Demo del Devbox AI Cockpit en Asciinema" width="100%" />
+</a>
+
+> Haz clic en la imagen para reproducir el asciicast. GitHub muestra la previsualización SVG en el README, pero no permite ejecutar el reproductor JavaScript embebido.
 
 ## Perfiles disponibles
 
