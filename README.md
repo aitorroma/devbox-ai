@@ -9,6 +9,11 @@ Cockpit portable para trabajar por SSH en un VPS con perfiles seleccionables par
 - **Pi + gentle-ai + Engram**, **Codex CLI**, **Claude Code CLI** y **RTK** solo en perfiles IA
 - Plantillas MCP para **Engram**, **Coolify**, **Context7** y **GitHub**
 
+
+## Demo
+
+[![asciicast](https://asciinema.org/a/1161930.svg)](https://asciinema.org/a/1161930)
+
 ## Perfiles disponibles
 
 | Perfil | Qué instala | Cuándo usarlo |
