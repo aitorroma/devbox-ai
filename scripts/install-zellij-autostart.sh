@@ -19,7 +19,7 @@ if [[ -o interactive ]] && [[ -t 0 ]] && [[ -t 1 ]] && [[ -z "\$ZELLIJ" ]] && [[
   if devbox run -c "\$COCKPIT_HOME" -- zellij attach dev 2>/dev/null; then
     exit
   fi
-  exec devbox run -c "\$COCKPIT_HOME" -- zellij --session dev --layout "\$COCKPIT_HOME/config/zellij/layouts/dev.kdl"
+  exec devbox run -c "\$COCKPIT_HOME" -- zellij --session dev --new-session-with-layout "\$COCKPIT_HOME/config/zellij/layouts/dev.kdl"
 fi
 $MARK_END
 EOF2
