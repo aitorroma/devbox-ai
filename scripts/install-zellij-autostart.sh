@@ -16,10 +16,10 @@ export COCKPIT_HOME="$ROOT"
 if [[ -o interactive ]] && [[ -t 0 ]] && [[ -t 1 ]] && [[ -z "\$ZELLIJ" ]] && [[ -z "\$ZELLIJ_AUTO_STARTED" ]] && [[ -z "\$TMUX" ]] && [[ "\$TERM" != "dumb" ]] && command -v devbox >/dev/null 2>&1 && [[ -d "\$COCKPIT_HOME" ]]; then
   export ZELLIJ_AUTO_STARTED=1
   cd "\$COCKPIT_HOME"
-  if devbox run -- zellij attach dev 2>/dev/null; then
+  if devbox run -c "\$COCKPIT_HOME" -- zellij attach dev 2>/dev/null; then
     exit
   fi
-  exec devbox run -- zellij --session dev --layout "\$COCKPIT_HOME/config/zellij/layouts/dev.kdl"
+  exec devbox run -c "\$COCKPIT_HOME" -- zellij --session dev --layout "\$COCKPIT_HOME/config/zellij/layouts/dev.kdl"
 fi
 $MARK_END
 EOF2
