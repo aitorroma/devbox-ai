@@ -9,6 +9,23 @@ Cockpit portable para trabajar por SSH en un VPS con:
 - **Codex CLI** y **Claude Code CLI** instalados por npm
 - Plantillas MCP para **Engram**, **Coolify**, **Context7** y **GitHub**
 
+## Toolpack incluido
+
+Además de Node, Zellij, Zsh, Pi, Codex y Claude, Devbox provisiona un pack amplio de herramientas:
+
+```text
+jq yq gh lazygit delta chezmoi
+duf btop htop ncdu tree wget rsync openssl
+age sops direnv just make gcc
+python312 python312Packages.pip uv go rustup
+docker-client docker-compose kubernetes-helm kubectl k9s
+terraform opentofu ansible
+httpie xh nmap dnsutils whois tcpdump mtr
+pre-commit shellcheck shfmt
+```
+
+Todo esto vive en el entorno Devbox/Nix; no ensucia `/usr/local`.
+
 ## Instalación rápida en VPS nuevo
 
 ```bash
