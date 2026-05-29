@@ -28,6 +28,14 @@ fi
 
 cd "$ROOT"
 
+# Use normal terminal panes, not command panes. Zellij opens $SHELL for bare panes.
+if command -v zsh >/dev/null 2>&1; then
+  export SHELL="$(command -v zsh)"
+else
+  export SHELL="$(command -v bash)"
+fi
+export COCKPIT_HOME="${COCKPIT_HOME:-$ROOT}"
+
 if [[ "$RESET" == 1 ]]; then
   zellij kill-session "$SESSION" >/dev/null 2>&1 || true
 fi

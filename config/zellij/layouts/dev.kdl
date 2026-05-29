@@ -3,16 +3,10 @@ layout {
         plugin location="zellij:tab-bar"
     }
     pane split_direction="vertical" {
-        pane size="60%" focus=true {
-            command "./scripts/cockpit-shell.sh"
-        }
+        pane size="60%" focus=true
         pane split_direction="horizontal" {
-            pane size="50%" {
-                command "./scripts/cockpit-shell.sh"
-            }
-            pane size="50%" {
-                command "./scripts/cockpit-shell.sh"
-            }
+            pane size="50%"
+            pane size="50%"
         }
     }
     pane size=2 borderless=true {
