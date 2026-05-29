@@ -30,6 +30,7 @@ devbox run mcp-render
 
 ```bash
 devbox run doctor
+devbox run work
 pi
 /gentle-ai:status
 ```
@@ -53,5 +54,5 @@ devbox run -c "$PWD" -- zellij-install
 Prueba manual sin depender del directorio actual:
 
 ```bash
-devbox run -c /root/cookpit -- zellij --session dev --new-session-with-layout /root/cookpit/config/zellij/layouts/dev.kdl
+devbox run -c /root/cookpit -- work
 ```

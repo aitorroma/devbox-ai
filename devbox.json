@@ -35,7 +35,8 @@
       ],
       "agent": "pi",
       "mcp-render": "./scripts/render-mcp.sh",
-      "zellij-install": "./scripts/install-zellij-autostart.sh"
+      "zellij-install": "./scripts/install-zellij-autostart.sh",
+      "work": "./scripts/work.sh"
     }
   }
 }
