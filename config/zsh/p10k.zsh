@@ -2,14 +2,14 @@
 # Goal: readable over SSH/Zellij with common terminal themes.
 
 # Keep it compact: left context, right status/time.
-typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs newline prompt_char)
+typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs prompt_char)
 typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time background_jobs time)
 
 # Font/icons. Falls back gracefully if the local terminal lacks nerd fonts.
 typeset -g POWERLEVEL9K_MODE=nerdfont-complete
 
-# One clean prompt line plus command line below for readability.
-typeset -g POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+# Keep the command on the same line as the prompt char.
+typeset -g POWERLEVEL9K_PROMPT_ON_NEWLINE=false
 typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
 typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=''
 typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=''
@@ -47,7 +47,7 @@ typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_CONTENT_EXPANSION='❯'
 typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_CONTENT_EXPANSION='❯'
 typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND=76
 typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_FOREGROUND=196
-typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=' '
 
 # Right prompt: subtle but readable.
 typeset -g POWERLEVEL9K_STATUS_OK=false
