@@ -33,3 +33,25 @@ devbox run doctor
 pi
 /gentle-ai:status
 ```
+
+## Recuperar SSH si el autostart de Zellij falla
+
+Si el servidor no tiene `zsh`, usa `bash`. La variable `ZELLIJ_AUTO_STARTED=1` salta el autostart para poder reparar:
+
+```bash
+ssh -t root@TU_SERVIDOR 'ZELLIJ_AUTO_STARTED=1 bash -l'
+```
+
+Dentro del servidor:
+
+```bash
+cd /root/cookpit   # o la ruta donde clonaste este repo
+git pull
+devbox run -c "$PWD" -- zellij-install
+```
+
+Prueba manual sin depender del directorio actual:
+
+```bash
+devbox run -c /root/cookpit -- zellij --session dev --layout /root/cookpit/config/zellij/layouts/dev.kdl
+```
