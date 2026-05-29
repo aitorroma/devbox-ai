@@ -18,6 +18,24 @@ Cockpit portable para trabajar por SSH en un VPS con perfiles seleccionables par
 
 > Haz clic en la imagen para reproducir el asciicast. GitHub muestra la previsualización SVG en el README, pero no permite ejecutar el reproductor JavaScript embebido.
 
+
+## Extender y adaptar tu fork
+
+Este repo está pensado para que cualquiera lo pueda forquear y adaptar sin romper la portabilidad. Hay una guía y una skill para agentes IA:
+
+- [docs/EXTENDING.md](docs/EXTENDING.md) — guía para crear perfiles, añadir MCPs, paquetes, layouts y scripts.
+- [skills/devbox-ai-extension/SKILL.md](skills/devbox-ai-extension/SKILL.md) — skill para que un agente pueda modificar el cockpit siguiendo las convenciones del proyecto.
+- [AGENTS.md](AGENTS.md) — instrucciones para agentes en forks.
+
+Ejemplo para crear un perfil propio:
+
+```bash
+mkdir -p profiles/company
+cp skills/devbox-ai-extension/assets/devbox-profile-template.json profiles/company/devbox.json
+cd profiles/company
+devbox update
+```
+
 ## Perfiles disponibles
 
 | Perfil | Qué instala | Cuándo usarlo |

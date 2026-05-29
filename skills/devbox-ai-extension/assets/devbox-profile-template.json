@@ -1,0 +1,35 @@
+{
+  "packages": [
+    "git",
+    "curl",
+    "zellij@latest",
+    "zsh@latest"
+  ],
+  "env": {
+    "NPM_CONFIG_PREFIX": "$HOME/.npm-global"
+  },
+  "shell": {
+    "init_hook": [
+      "export COCKPIT_PROFILE=myprofile",
+      "export COCKPIT_ENABLE_AI=0",
+      "export COCKPIT_ENABLE_DEVOPS=0",
+      "export COCKPIT_HOME=\"$(cd ../.. && pwd)\"",
+      "export COCKPIT_DEVBOX_CONFIG=\"$(pwd)\"",
+      "export PATH=$HOME/.npm-global/bin:$PATH",
+      "export PATH=$HOME/.local/bin:$PATH",
+      "echo '🚀 VPS cockpit environment ready (myprofile)'"
+    ],
+    "scripts": {
+      "setup": "../../scripts/setup.sh",
+      "doctor": "../../scripts/doctor.sh",
+      "mcp-render": "../../scripts/render-mcp.sh",
+      "zellij-install": "../../scripts/install-zellij-autostart.sh",
+      "work": "../../scripts/work.sh",
+      "zsh-install": "../../scripts/install-zsh.sh",
+      "work-reset": "../../scripts/work.sh --reset",
+      "work-update": "../../scripts/work-update.sh",
+      "bootstrap": "../../scripts/bootstrap.sh",
+      "profile-info": "../../scripts/profile-info.sh"
+    }
+  }
+}
