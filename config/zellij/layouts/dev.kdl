@@ -3,10 +3,16 @@ layout {
         plugin location="zellij:tab-bar"
     }
     pane split_direction="vertical" {
-        pane command="zsh" size="60%" focus=true
+        pane command="zsh" size="60%" focus=true {
+            args "-i"
+        }
         pane split_direction="horizontal" {
-            pane command="zsh" size="50%"
-            pane command="zsh" size="50%"
+            pane command="zsh" size="50%" {
+                args "-i"
+            }
+            pane command="zsh" size="50%" {
+                args "-i"
+            }
         }
     }
     pane size=2 borderless=true {
