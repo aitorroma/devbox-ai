@@ -45,6 +45,19 @@ devbox run mcp-render
 devbox run zellij-install
 ```
 
+## Layout de Zellij
+
+El workspace intencionalmente tiene **dos tabs**:
+
+1. **SYSTEM** — una shell grande, limpia, iniciando en `~`.
+2. **IA** — el cockpit de trabajo con tres panes, iniciando en el repo.
+
+Si cambias el layout o ves tabs antiguas, recrea la sesión desde fuera de Zellij:
+
+```bash
+devbox run -c /root/cookpit -- work-reset
+```
+
 ## Comandos diarios
 
 ```bash

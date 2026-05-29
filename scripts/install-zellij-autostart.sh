@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 mkdir -p "$HOME/.config/zellij/layouts"
-cp "$ROOT/config/zellij/layouts/dev.kdl" "$HOME/.config/zellij/layouts/dev.kdl"
+cp "$ROOT/config/zellij/layouts/dev.kdl.template" "$HOME/.config/zellij/layouts/dev.kdl.template"
 
 MARK_START='# >>> vps-cockpit zellij >>>'
 MARK_END='# <<< vps-cockpit zellij <<<'

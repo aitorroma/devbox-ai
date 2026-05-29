@@ -2,7 +2,8 @@
 set -euo pipefail
 
 ROOT="${DEVBOX_PROJECT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-LAYOUT="$ROOT/config/zellij/layouts/dev.kdl"
+TEMPLATE="$ROOT/config/zellij/layouts/dev.kdl.template"
+LAYOUT="$ROOT/.devbox/gen/zellij-dev.kdl"
 SESSION="${COCKPIT_ZELLIJ_SESSION:-dev}"
 RESET=0
 
@@ -15,16 +16,35 @@ case "${1:-}" in
 Usage: devbox run work [--reset]
 
 Attach to the cockpit Zellij session, or create it with the portable layout.
-Use --reset to kill the existing session first so layout changes apply.
+Use --reset to delete the existing session first so tab/layout changes apply.
+
+Layout:
+  SYSTEM: one full-screen shell in \$HOME
+  IA:     three-pane AI cockpit in the repo
 HELP
     exit 0
     ;;
 esac
 
-if [[ ! -f "$LAYOUT" ]]; then
-  echo "Layout no encontrado: $LAYOUT" >&2
+if [[ ! -f "$TEMPLATE" ]]; then
+  echo "Template de layout no encontrado: $TEMPLATE" >&2
   exit 1
 fi
+
+mkdir -p "$(dirname "$LAYOUT")"
+ROOT="$ROOT" HOME_DIR="$HOME" TEMPLATE="$TEMPLATE" LAYOUT="$LAYOUT" python3 - <<'PY'
+import json
+import os
+from pathlib import Path
+
+def kdl_string(value: str) -> str:
+    return json.dumps(value)
+
+template = Path(os.environ['TEMPLATE']).read_text()
+rendered = template.replace('"__ROOT__"', kdl_string(os.environ['ROOT']))
+rendered = rendered.replace('"__HOME__"', kdl_string(os.environ['HOME_DIR']))
+Path(os.environ['LAYOUT']).write_text(rendered)
+PY
 
 cd "$ROOT"
 
@@ -40,7 +60,7 @@ if [[ -n "${ZELLIJ:-}" ]]; then
   if [[ "$RESET" == 1 ]]; then
     cat >&2 <<MSG
 ⚠️  Estás dentro de Zellij. No ejecuto work-reset desde dentro porque Zellij
-   interpreta la creación de layout como una tab nueva y acabarías con tabs duplicadas.
+   puede interpretar la creación de layout como una tab nueva.
 
    Hazlo desde fuera de Zellij:
      ZELLIJ_AUTO_STARTED=1 bash -lc 'cd "$ROOT" && devbox run -c "$ROOT" -- work-reset'
