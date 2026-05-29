@@ -45,6 +45,7 @@ alias fzfnvim='nvim $(fzf --preview="bat --theme=gruvbox-dark --color=always {}"
 # Cockpit shortcuts
 alias work='devbox run -c "$COCKPIT_HOME" -- work'
 alias zwork='devbox run -c "$COCKPIT_HOME" -- work'
+alias work-reset='devbox run -c "$COCKPIT_HOME" -- work-reset'
 alias agent='devbox run -c "$COCKPIT_HOME" -- agent'
 alias doctor='devbox run -c "$COCKPIT_HOME" -- doctor'
 alias work-update='devbox run -c "$COCKPIT_HOME" -- work-update'

@@ -1,86 +1,123 @@
-# VPS Cockpit portable con Devbox
+# Devbox AI Cockpit
 
-Objetivo: clonar este directorio en cualquier VPS y reconstruir el entorno sin depender de estado local oculto.
+Cockpit portable para trabajar por SSH en un VPS con:
 
-## Primer arranque
+- **Devbox/Nix** para reproducibilidad
+- **Zellij** como workspace persistente
+- **Zsh** configurado tipo workstation
+- **Pi + gentle-ai + Engram** como agente con memoria
+- Plantillas MCP para **Engram**, **Coolify**, **Context7** y **GitHub**
+
+## Instalación rápida en VPS nuevo
 
 ```bash
-curl -fsSL https://get.jetify.com/devbox | bash   # si devbox no existe
-git clone <este-repo> cockpit
-cd cockpit
-devbox shell
+apt update && apt install -y curl git bash
+curl -fsSL https://get.jetify.com/devbox | bash
+git clone https://github.com/aitorroma/devbox-ai.git /root/cookpit
+cd /root/cookpit
+devbox run bootstrap
+```
+
+Al terminar, recarga shell o reconecta por SSH:
+
+```bash
+source ~/.bashrc
+work-reset
+```
+
+El wizard interactivo de gentle-ai es opcional y se ejecuta aparte:
+
+```bash
+gentle-install
+# o
+devbox run -c /root/cookpit -- gentle-install
+```
+
+## Instalación manual paso a paso
+
+```bash
+cd /root/cookpit
 devbox run setup
 devbox run zsh-install
-devbox run gentle-install      # wizard interactivo
 devbox run pi-plugins
-devbox run mcp-render          # genera ~/.pi/agent/mcp.json desde plantilla
-devbox run zellij-install      # opcional: autostart por SSH
+devbox run mcp-render
+devbox run zellij-install
+```
+
+## Comandos diarios
+
+```bash
+work          # abre/adjunta Zellij dev
+work-reset    # recrea la sesión dev y reaplica layout
+work-update   # git pull + reinstala shell/autostart + actualiza cockpit
+doctor        # verifica herramientas/versiones
+agent         # lanza Pi
+```
+
+Si los aliases aún no están cargados:
+
+```bash
+devbox run -c /root/cookpit -- work
+devbox run -c /root/cookpit -- work-reset
+devbox run -c /root/cookpit -- work-update
+devbox run -c /root/cookpit -- doctor
+devbox run -c /root/cookpit -- agent
 ```
 
 ## Secretos por VPS
 
 ```bash
+cd /root/cookpit
 cp .env.example .env
-$EDITOR .env
+nano .env
 devbox run mcp-render
 ```
 
-`.env` no debe commitearse. La plantilla portable está en `config/pi/mcp.template.json`.
+`.env` no se commitea. La plantilla portable está en `config/pi/mcp.template.json`.
 
-## Verificación
-
-```bash
-devbox run doctor
-devbox run work
-pi
-/gentle-ai:status
-```
-
-## Recuperar SSH si el autostart de Zellij falla
-
-Si el servidor no tiene `zsh`, usa `bash`. La variable `ZELLIJ_AUTO_STARTED=1` salta el autostart para poder reparar:
+## Actualizar cockpit
 
 ```bash
-ssh -t root@TU_SERVIDOR 'ZELLIJ_AUTO_STARTED=1 bash -l'
+work-update
 ```
 
-Dentro del servidor:
-
-```bash
-cd /root/cookpit   # o la ruta donde clonaste este repo
-git pull
-devbox run -c "$PWD" -- zellij-install
-```
-
-Prueba manual sin depender del directorio actual:
+Si estás dentro de Zellij y te avisa que no puede matar la sesión actual, sal/reconecta o ejecuta desde fuera:
 
 ```bash
 devbox run -c /root/cookpit -- work-reset
 ```
 
-## Zsh portable
+## Recuperar SSH si el autostart falla
 
-El repo instala una configuración Zsh portable inspirada en la workstation: Powerlevel10k, autosuggestions, syntax highlighting, autocomplete, fzf, zoxide, atuin, eza, bat y carapace. No copia secretos ni rutas locales.
+Salta el autostart con `ZELLIJ_AUTO_STARTED=1`:
 
 ```bash
-devbox run zsh-install
-devbox run -c "$PWD" -- zsh -i
+ssh -t root@TU_SERVIDOR 'ZELLIJ_AUTO_STARTED=1 bash -l'
 ```
 
-Los paneles del layout de Zellij arrancan `zsh` dentro del entorno Devbox.
-
-Para aplicar cambios de layout a una sesión existente:
+Dentro:
 
 ```bash
+cd /root/cookpit
+git pull
+devbox run -c "$PWD" -- zellij-install
 devbox run -c "$PWD" -- work-reset
 ```
 
-## Actualizar cockpit
+## Zsh portable
 
-Para traer la última versión del repo, reinstalar la shell/autostart y recrear Zellij:
+La configuración zsh incluye Powerlevel10k, autosuggestions, syntax highlighting, autocomplete, fzf, zoxide, atuin, eza, bat y carapace. No copia secretos ni rutas locales.
+
+Reinstalar solo zsh:
 
 ```bash
-work-update
-# o, si los aliases aún no están cargados:
-devbox run -c /root/cookpit -- work-update
+devbox run -c /root/cookpit -- zsh-install
+```
+
+## Verificación
+
+```bash
+doctor
+pi
+/gentle-ai:status
 ```

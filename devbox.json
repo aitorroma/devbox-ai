@@ -57,7 +57,8 @@
       "work": "./scripts/work.sh",
       "zsh-install": "./scripts/install-zsh.sh",
       "work-reset": "./scripts/work.sh --reset",
-      "work-update": "./scripts/work-update.sh"
+      "work-update": "./scripts/work-update.sh",
+      "bootstrap": "./scripts/bootstrap.sh"
     }
   }
 }
