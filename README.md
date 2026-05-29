@@ -7,11 +7,12 @@ Cockpit portable para trabajar por SSH en un VPS con:
 - **Zsh** configurado tipo workstation
 - **Pi + gentle-ai + Engram** como agente con memoria
 - **Codex CLI** y **Claude Code CLI** instalados por npm
+- **RTK (Rust Token Killer)** para comprimir outputs de shell y ahorrar tokens
 - Plantillas MCP para **Engram**, **Coolify**, **Context7** y **GitHub**
 
 ## Toolpack incluido
 
-Además de Node, Zellij, Zsh, Pi, Codex y Claude, Devbox provisiona un pack amplio de herramientas:
+Además de Node, Zellij, Zsh, Pi, Codex, Claude y RTK, Devbox provisiona un pack amplio de herramientas:
 
 ```text
 jq yq gh lazygit delta chezmoi
@@ -24,7 +25,7 @@ httpie xh nmap dnsutils whois tcpdump mtr
 pre-commit shellcheck shfmt
 ```
 
-Todo esto vive en el entorno Devbox/Nix; no ensucia `/usr/local`.
+Todo esto vive en el entorno Devbox/Nix; no ensucia `/usr/local`. Los binarios de agentes (`pi`, `codex`, `claude`) viven en `$HOME/.npm-global` y `rtk` en `$HOME/.local/bin`, ambos dentro de tu HOME portable.
 
 Ver [TOOLS.md](./TOOLS.md) para saber qué hace cada herramienta.
 
@@ -57,7 +58,7 @@ devbox run -c /root/cookpit -- gentle-install
 
 ```bash
 cd /root/cookpit
-devbox run setup        # instala Pi, gentle-ai, Codex y Claude
+devbox run setup        # instala Pi, gentle-ai, Codex, Claude y RTK
 devbox run zsh-install
 devbox run pi-plugins
 devbox run mcp-render
@@ -87,6 +88,7 @@ doctor        # verifica herramientas/versiones
 agent         # lanza Pi
 codex         # lanza Codex CLI
 claude        # lanza Claude Code CLI
+rtk gain      # muestra ahorro acumulado de tokens
 ```
 
 Si los aliases aún no están cargados:
@@ -97,6 +99,7 @@ devbox run -c /root/cookpit -- work-reset
 devbox run -c /root/cookpit -- work-update
 devbox run -c /root/cookpit -- doctor
 devbox run -c /root/cookpit -- agent
+devbox run -c /root/cookpit -- rtk gain
 ```
 
 ## Secretos por VPS
@@ -155,6 +158,28 @@ devbox run -c /root/cookpit -- zsh-install
 doctor
 pi
 /gentle-ai:status
+```
+
+## RTK para ahorrar tokens
+
+RTK se instala desde `rtk-ai/rtk` y queda en `$HOME/.local/bin`. El setup ejecuta también los hooks globales para Claude/Copilot y Codex:
+
+```bash
+rtk init -g
+rtk init -g --codex
+```
+
+Verificación:
+
+```bash
+rtk --version
+rtk gain
+```
+
+Reinstalar/actualizar solo RTK:
+
+```bash
+devbox run -c /root/cookpit -- rtk-install
 ```
 
 ## AI CLIs

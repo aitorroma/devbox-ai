@@ -14,6 +14,9 @@ fi
 echo "🤖 Actualizando AI CLIs..."
 "$ROOT/scripts/install-ai-clis.sh"
 
+echo "🪓 Actualizando RTK..."
+"$ROOT/scripts/install-rtk.sh"
+
 echo "🐚 Instalando zsh portable..."
 "$ROOT/scripts/install-zsh.sh"
 

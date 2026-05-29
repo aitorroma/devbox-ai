@@ -9,3 +9,5 @@
 .zellij/
 # Local Pi runtime state
 .atl/
+
+.venv/

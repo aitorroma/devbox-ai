@@ -4,6 +4,7 @@ Este cockpit instala herramientas en dos capas:
 
 - **Devbox/Nix**: herramientas reproducibles del sistema, disponibles dentro de `devbox shell`, `devbox run ...` y el workspace `work`.
 - **npm global en `$HOME/.npm-global`**: CLIs de agentes IA (`pi`, `codex`, `claude`) para uso diario rápido.
+- **binarios en `$HOME/.local/bin`**: herramientas externas portables como `rtk`.
 
 ## Cockpit y shell
 
@@ -31,6 +32,7 @@ Este cockpit instala herramientas en dos capas:
 | `engram` | Memoria persistente del agente vía MCP. Se configura mediante plugins/scripts. |
 | `codex` | OpenAI Codex CLI. |
 | `claude` | Claude Code CLI. |
+| `rtk` | Rust Token Killer: proxy/compactador de salida de comandos para reducir tokens enviados al agente. |
 
 ## Git, GitHub y dotfiles
 
@@ -129,4 +131,5 @@ O checks puntuales:
 devbox run -c /root/cookpit -- ansible --version
 devbox run -c /root/cookpit -- lazygit --version
 devbox run -c /root/cookpit -- chezmoi --version
+devbox run -c /root/cookpit -- rtk gain
 ```
