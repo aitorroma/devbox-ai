@@ -7,7 +7,18 @@
     "neovim@latest",
     "ripgrep",
     "fd",
-    "zellij@latest"
+    "zellij@latest",
+    "zsh@latest",
+    "fzf",
+    "zoxide",
+    "atuin",
+    "bat",
+    "eza",
+    "carapace",
+    "zsh-autocomplete",
+    "zsh-autosuggestions",
+    "zsh-syntax-highlighting",
+    "zsh-powerlevel10k"
   ],
   "env": {
     "NPM_CONFIG_PREFIX": "$HOME/.npm-global"
@@ -26,9 +37,16 @@
         "node -v",
         "npm -v",
         "git --version",
+        "zsh --version",
         "nvim --version | head -1",
         "rg --version | head -1",
         "fd --version",
+        "fzf --version | head -1",
+        "zoxide --version",
+        "atuin --version",
+        "bat --version",
+        "eza --version",
+        "carapace --version",
         "zellij --version",
         "pi --version",
         "gentle-ai --version"
@@ -36,7 +54,8 @@
       "agent": "pi",
       "mcp-render": "./scripts/render-mcp.sh",
       "zellij-install": "./scripts/install-zellij-autostart.sh",
-      "work": "./scripts/work.sh"
+      "work": "./scripts/work.sh",
+      "zsh-install": "./scripts/install-zsh.sh"
     }
   }
 }

@@ -10,6 +10,7 @@ git clone <este-repo> cockpit
 cd cockpit
 devbox shell
 devbox run setup
+devbox run zsh-install
 devbox run gentle-install      # wizard interactivo
 devbox run pi-plugins
 devbox run mcp-render          # genera ~/.pi/agent/mcp.json desde plantilla
@@ -56,3 +57,14 @@ Prueba manual sin depender del directorio actual:
 ```bash
 devbox run -c /root/cookpit -- work
 ```
+
+## Zsh portable
+
+El repo instala una configuración Zsh portable inspirada en la workstation: Powerlevel10k, autosuggestions, syntax highlighting, autocomplete, fzf, zoxide, atuin, eza, bat y carapace. No copia secretos ni rutas locales.
+
+```bash
+devbox run zsh-install
+devbox run -c "$PWD" -- zsh -i
+```
+
+Los paneles del layout de Zellij arrancan `zsh` dentro del entorno Devbox.
