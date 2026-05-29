@@ -26,6 +26,8 @@ pre-commit shellcheck shfmt
 
 Todo esto vive en el entorno Devbox/Nix; no ensucia `/usr/local`.
 
+Ver [TOOLS.md](./TOOLS.md) para saber qué hace cada herramienta.
+
 ## Instalación rápida en VPS nuevo
 
 ```bash
