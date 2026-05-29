@@ -5,9 +5,6 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 mkdir -p "$HOME/.config/zellij/layouts"
 cp "$ROOT/config/zellij/layouts/dev.kdl" "$HOME/.config/zellij/layouts/dev.kdl"
 
-SHELL_RC="$HOME/.zshrc"
-[[ -n "${BASH_VERSION:-}" && "${SHELL##*/}" == "bash" ]] && SHELL_RC="$HOME/.bashrc"
-
 MARK_START='# >>> vps-cockpit zellij >>>'
 MARK_END='# <<< vps-cockpit zellij <<<'
 BLOCK=$(cat <<EOF2
@@ -22,8 +19,11 @@ $MARK_END
 EOF2
 )
 
-if grep -qF "$MARK_START" "$SHELL_RC" 2>/dev/null; then
-  SHELL_RC="$SHELL_RC" MARK_START="$MARK_START" MARK_END="$MARK_END" BLOCK="$BLOCK" python3 - <<'PY'
+install_block() {
+  local file="$1"
+  touch "$file"
+  if grep -qF "$MARK_START" "$file" 2>/dev/null; then
+    SHELL_RC="$file" MARK_START="$MARK_START" MARK_END="$MARK_END" BLOCK="$BLOCK" python3 - <<'PY'
 import os
 from pathlib import Path
 p = Path(os.environ['SHELL_RC'])
@@ -35,8 +35,40 @@ before, rest = s.split(start, 1)
 _, after = rest.split(end, 1)
 p.write_text(before.rstrip() + "\n\n" + block + after)
 PY
-  echo "✅ Autostart actualizado en $SHELL_RC"
-else
-  printf '\n%s\n' "$BLOCK" >> "$SHELL_RC"
-  echo "✅ Autostart añadido a $SHELL_RC"
+    echo "✅ Autostart actualizado en $file"
+  else
+    printf '\n%s\n' "$BLOCK" >> "$file"
+    echo "✅ Autostart añadido a $file"
+  fi
+}
+
+install_bash_bridge() {
+  local file="$1"
+  local start='# >>> vps-cockpit bashrc bridge >>>'
+  local end='# <<< vps-cockpit bashrc bridge <<<'
+  local bridge
+  bridge=$(cat <<'EOF2'
+# >>> vps-cockpit bashrc bridge >>>
+if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
+  . "$HOME/.bashrc"
 fi
+# <<< vps-cockpit bashrc bridge <<<
+EOF2
+)
+  touch "$file"
+  if ! grep -qF "$start" "$file" 2>/dev/null && ! grep -q '\. \?"\?$HOME/.bashrc"\?' "$file" 2>/dev/null; then
+    printf '\n%s\n' "$bridge" >> "$file"
+    echo "✅ Bridge bashrc añadido a $file"
+  fi
+}
+
+# Bash is the baseline shell on fresh VPSes: put the real block in .bashrc.
+install_block "$HOME/.bashrc"
+
+# SSH often starts bash as a login shell, which reads .profile/.bash_profile first.
+# Ensure those files source .bashrc so autostart works after plain `ssh host`.
+install_bash_bridge "$HOME/.profile"
+[[ -f "$HOME/.bash_profile" ]] && install_bash_bridge "$HOME/.bash_profile"
+
+# If the user later switches login shell to zsh, keep zsh covered too.
+[[ -f "$HOME/.zshrc" ]] && install_block "$HOME/.zshrc"

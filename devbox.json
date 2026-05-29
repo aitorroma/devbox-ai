@@ -55,7 +55,8 @@
       "mcp-render": "./scripts/render-mcp.sh",
       "zellij-install": "./scripts/install-zellij-autostart.sh",
       "work": "./scripts/work.sh",
-      "zsh-install": "./scripts/install-zsh.sh"
+      "zsh-install": "./scripts/install-zsh.sh",
+      "work-reset": "./scripts/work.sh --reset"
     }
   }
 }

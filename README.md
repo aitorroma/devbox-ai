@@ -55,7 +55,7 @@ devbox run -c "$PWD" -- zellij-install
 Prueba manual sin depender del directorio actual:
 
 ```bash
-devbox run -c /root/cookpit -- work
+devbox run -c /root/cookpit -- work-reset
 ```
 
 ## Zsh portable
@@ -68,3 +68,9 @@ devbox run -c "$PWD" -- zsh -i
 ```
 
 Los paneles del layout de Zellij arrancan `zsh` dentro del entorno Devbox.
+
+Para aplicar cambios de layout a una sesión existente:
+
+```bash
+devbox run -c "$PWD" -- work-reset
+```
