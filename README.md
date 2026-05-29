@@ -6,6 +6,7 @@ Cockpit portable para trabajar por SSH en un VPS con:
 - **Zellij** como workspace persistente
 - **Zsh** configurado tipo workstation
 - **Pi + gentle-ai + Engram** como agente con memoria
+- **Codex CLI** y **Claude Code CLI** instalados por npm
 - Plantillas MCP para **Engram**, **Coolify**, **Context7** y **GitHub**
 
 ## Instalación rápida en VPS nuevo
@@ -37,7 +38,7 @@ devbox run -c /root/cookpit -- gentle-install
 
 ```bash
 cd /root/cookpit
-devbox run setup
+devbox run setup        # instala Pi, gentle-ai, Codex y Claude
 devbox run zsh-install
 devbox run pi-plugins
 devbox run mcp-render
@@ -52,6 +53,8 @@ work-reset    # recrea la sesión dev y reaplica layout
 work-update   # git pull + reinstala shell/autostart + actualiza cockpit
 doctor        # verifica herramientas/versiones
 agent         # lanza Pi
+codex         # lanza Codex CLI
+claude        # lanza Claude Code CLI
 ```
 
 Si los aliases aún no están cargados:
@@ -120,4 +123,19 @@ devbox run -c /root/cookpit -- zsh-install
 doctor
 pi
 /gentle-ai:status
+```
+
+## AI CLIs
+
+El bootstrap instala también:
+
+```bash
+codex --version
+claude --version
+```
+
+Para reinstalarlos/actualizarlos manualmente:
+
+```bash
+devbox run -c /root/cookpit -- ai-clis
 ```

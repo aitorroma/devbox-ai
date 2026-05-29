@@ -18,5 +18,7 @@ echo "⬇️  ${GENTLE_ASSET}"
 curl -fsSL "$GENTLE_URL" | tar xz -C "$HOME/.local/bin"
 chmod +x "$HOME/.local/bin/gentle-ai"
 
+"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/install-ai-clis.sh"
+
 echo '✅ Binarios listos.'
 echo 'Siguiente: devbox run gentle-install && devbox run pi-plugins && devbox run mcp-render'

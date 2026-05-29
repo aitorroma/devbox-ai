@@ -49,7 +49,9 @@
         "carapace --version",
         "zellij --version",
         "pi --version",
-        "gentle-ai --version"
+        "gentle-ai --version",
+        "codex --version",
+        "claude --version"
       ],
       "agent": "pi",
       "mcp-render": "./scripts/render-mcp.sh",
@@ -58,7 +60,8 @@
       "zsh-install": "./scripts/install-zsh.sh",
       "work-reset": "./scripts/work.sh --reset",
       "work-update": "./scripts/work-update.sh",
-      "bootstrap": "./scripts/bootstrap.sh"
+      "bootstrap": "./scripts/bootstrap.sh",
+      "ai-clis": "./scripts/install-ai-clis.sh"
     }
   }
 }

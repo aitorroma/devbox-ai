@@ -11,6 +11,9 @@ else
   echo "⚠️  No es un repo git: salto git pull"
 fi
 
+echo "🤖 Actualizando AI CLIs..."
+"$ROOT/scripts/install-ai-clis.sh"
+
 echo "🐚 Instalando zsh portable..."
 "$ROOT/scripts/install-zsh.sh"
 
