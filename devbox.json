@@ -1,0 +1,41 @@
+{
+  "packages": [
+    "nodejs@22",
+    "git",
+    "curl",
+    "unzip",
+    "neovim@latest",
+    "ripgrep",
+    "fd",
+    "zellij@latest"
+  ],
+  "env": {
+    "NPM_CONFIG_PREFIX": "$HOME/.npm-global"
+  },
+  "shell": {
+    "init_hook": [
+      "export PATH=$HOME/.npm-global/bin:$PATH",
+      "export PATH=$HOME/.local/bin:$PATH",
+      "echo '🚀 VPS cockpit environment ready'"
+    ],
+    "scripts": {
+      "setup": "./scripts/setup.sh",
+      "gentle-install": "gentle-ai install --agent pi",
+      "pi-plugins": "./scripts/install-pi-plugins.sh",
+      "doctor": [
+        "node -v",
+        "npm -v",
+        "git --version",
+        "nvim --version | head -1",
+        "rg --version | head -1",
+        "fd --version",
+        "zellij --version",
+        "pi --version",
+        "gentle-ai --version"
+      ],
+      "agent": "pi",
+      "mcp-render": "./scripts/render-mcp.sh",
+      "zellij-install": "./scripts/install-zellij-autostart.sh"
+    }
+  }
+}

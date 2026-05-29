@@ -1,0 +1,11 @@
+# Local secrets and machine state
+.env
+.env.*
+!.env.example
+.devbox/
+
+# Agent/session local state
+.pi/
+.zellij/
+# Local Pi runtime state
+.atl/
