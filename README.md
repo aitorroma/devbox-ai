@@ -139,3 +139,20 @@ Para reinstalarlos/actualizarlos manualmente:
 ```bash
 devbox run -c /root/cookpit -- ai-clis
 ```
+
+## Evitar tabs duplicadas en Zellij
+
+No ejecutes `work` o `work-reset` desde dentro de Zellij para recrear el layout: Zellij puede interpretarlo como añadir una tab nueva.
+
+Para resetear desde una shell normal fuera de Zellij:
+
+```bash
+ZELLIJ_AUTO_STARTED=1 bash -lc 'cd /root/cookpit && devbox run -c /root/cookpit -- work-reset'
+```
+
+Para borrar una sesión vieja/EXITED manualmente:
+
+```bash
+devbox run -c /root/cookpit -- zellij delete-session --force dev
+devbox run -c /root/cookpit -- work
+```

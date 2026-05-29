@@ -36,8 +36,24 @@ else
 fi
 export COCKPIT_HOME="${COCKPIT_HOME:-$ROOT}"
 
+if [[ -n "${ZELLIJ:-}" ]]; then
+  if [[ "$RESET" == 1 ]]; then
+    cat >&2 <<MSG
+⚠️  Estás dentro de Zellij. No ejecuto work-reset desde dentro porque Zellij
+   interpreta la creación de layout como una tab nueva y acabarías con tabs duplicadas.
+
+   Hazlo desde fuera de Zellij:
+     ZELLIJ_AUTO_STARTED=1 bash -lc 'cd "$ROOT" && devbox run -c "$ROOT" -- work-reset'
+MSG
+    exit 2
+  fi
+  echo "ℹ️  Ya estás dentro de Zellij. Usa Ctrl+o d para detach o work-reset desde fuera."
+  exit 0
+fi
+
 if [[ "$RESET" == 1 ]]; then
-  zellij kill-session "$SESSION" >/dev/null 2>&1 || true
+  # Delete removes EXITED/resurrectable sessions too; --force kills if still running.
+  zellij delete-session --force "$SESSION" >/dev/null 2>&1 || true
 fi
 
 if zellij attach "$SESSION" 2>/dev/null; then
