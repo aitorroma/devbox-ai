@@ -48,6 +48,11 @@ alias zwork='devbox run -c "$COCKPIT_HOME" -- work'
 alias agent='devbox run -c "$COCKPIT_HOME" -- agent'
 alias doctor='devbox run -c "$COCKPIT_HOME" -- doctor'
 
+# Clear terminal title inside Zellij panes.
+case "$TERM" in
+  xterm*|screen*|tmux*) print -Pn "\e]0;cockpit: %~\a" ;;
+esac
+
 # Devbox-provided zsh plugins. These paths exist when zsh is launched via devbox.
 _devbox_share="${DEVBOX_PACKAGES_DIR:-}/share"
 if [[ -t 0 && -t 1 ]]; then
