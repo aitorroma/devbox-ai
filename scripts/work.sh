@@ -26,6 +26,8 @@ if [[ ! -f "$LAYOUT" ]]; then
   exit 1
 fi
 
+cd "$ROOT"
+
 if [[ "$RESET" == 1 ]]; then
   zellij kill-session "$SESSION" >/dev/null 2>&1 || true
 fi
