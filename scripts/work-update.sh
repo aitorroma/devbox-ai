@@ -78,8 +78,11 @@ if [[ "${COCKPIT_ENABLE_AI:-0}" == "1" ]]; then
 
   echo "🛰️  Actualizando Antigravity CLI..."
   "$ROOT/scripts/install-antigravity.sh"
+
+  echo "🧩 Actualizando Workmux..."
+  "$ROOT/scripts/install-workmux.sh"
 else
-  echo "ℹ️  Perfil ${COCKPIT_PROFILE:-base}: salto AI CLIs/RTK/Antigravity."
+  echo "ℹ️  Perfil ${COCKPIT_PROFILE:-base}: salto AI CLIs/RTK/Antigravity/Workmux."
 fi
 
 echo "🐚 Instalando zsh portable..."

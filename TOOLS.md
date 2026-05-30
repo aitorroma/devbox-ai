@@ -3,15 +3,15 @@
 Este cockpit instala herramientas en perfiles para ahorrar disco:
 
 - **base**: cockpit/shell mínimo.
-- **ai**: `base` + Node/Pi/gentle-ai/Codex/Claude/Antigravity CLI/RTK.
+- **ai**: `base` + Node/Pi/gentle-ai/Codex/Claude/OpenCode/Antigravity CLI/Workmux/RTK.
 - **devops**: `base` + herramientas de infra/DevOps, sin agentes IA.
 - **full**: `ai` + `devops`.
 
 Capas de instalación:
 
 - **Devbox/Nix**: herramientas reproducibles del sistema, disponibles dentro de `devbox shell`, `devbox run ...` y el workspace `work`.
-- **npm global en `$HOME/.npm-global`**: CLIs de agentes IA (`pi`, `codex`, `claude`) en perfiles `ai`/`full`.
-- **binarios en `$HOME/.local/bin`**: herramientas externas portables como `rtk` y `agy` en perfiles `ai`/`full`.
+- **npm global en `$HOME/.npm-global`**: CLIs de agentes IA (`pi`, `codex`, `claude`, `opencode`) en perfiles `ai`/`full`.
+- **binarios en `$HOME/.local/bin`**: herramientas externas portables como `rtk`, `agy` y `workmux` en perfiles `ai`/`full`.
 
 ## Cockpit y shell
 
@@ -39,7 +39,9 @@ Capas de instalación:
 | `engram` | Memoria persistente del agente vía MCP. Se configura mediante plugins/scripts. |
 | `codex` | OpenAI Codex CLI. |
 | `claude` | Claude Code CLI. |
+| `opencode` | OpenCode CLI: agente open-source de coding en terminal. |
 | `agy` | Google Antigravity CLI: agente de coding terminal-first para editar codebases y ejecutar comandos con autorización. |
+| `workmux` / `wm` | Crea worktrees y abre agentes en multiplexores; en Zellij usa backend experimental/autodetectado por `$ZELLIJ`. |
 | `rtk` | Rust Token Killer: proxy/compactador de salida de comandos para reducir tokens enviados al agente. |
 
 ## Git, GitHub y dotfiles (`devops` / `full`, salvo `git` que está en `base`)

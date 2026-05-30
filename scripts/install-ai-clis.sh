@@ -11,4 +11,7 @@ npm install -g @openai/codex
 echo '🤖 Instalando/actualizando Claude Code CLI...'
 npm install -g @anthropic-ai/claude-code
 
-echo '✅ AI CLIs listas: codex, claude'
+echo '🤖 Instalando/actualizando OpenCode CLI...'
+npm install -g opencode-ai
+
+echo '✅ AI CLIs listas: codex, claude, opencode'

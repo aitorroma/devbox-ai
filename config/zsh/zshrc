@@ -55,6 +55,10 @@ alias work-full='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/s
 alias agent='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- agent'
 alias doctor='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- doctor'
 alias profile-info='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- profile-info'
+alias opencode='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- opencode'
+alias workmux='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- workmux'
+alias wm='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- workmux'
+alias wmz='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- env WORKMUX_BACKEND=zellij workmux'
 alias work-update='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work-update.sh"'
 alias update-ia='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work-update.sh" --profile ia'
 alias update-ai='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work-update.sh" --profile ia'
@@ -77,6 +81,11 @@ if [[ -t 0 && -t 1 ]]; then
   [[ -f "$_devbox_share/fzf/key-bindings.zsh" ]] && source "$_devbox_share/fzf/key-bindings.zsh"
 fi
 [[ -f "$_devbox_share/fzf/completion.zsh" ]] && source "$_devbox_share/fzf/completion.zsh"
+
+# Workmux completions when installed in IA/full profiles.
+if command -v workmux >/dev/null 2>&1; then
+  eval "$(workmux completions zsh 2>/dev/null)" || true
+fi
 
 # Prompt: compact cockpit style.
 # Looks like:

@@ -16,7 +16,7 @@ DevOps:         $DEVOPS
 
 Perfiles disponibles:
   base    -> shell/cockpit mínimo
-  ai      -> base + Node + Pi/gentle-ai/Codex/Claude/Antigravity/RTK
+  ai      -> base + Node + Pi/gentle-ai/Codex/Claude/OpenCode/Antigravity/Workmux/RTK
   devops  -> base + herramientas DevOps, sin agentes IA
   full    -> ai + devops
 

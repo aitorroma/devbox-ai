@@ -47,6 +47,8 @@ if [[ "$AI" == "1" ]]; then
   check "gentle-ai" gentle-ai --version
   check "codex" codex --version
   check "claude" claude --version
+  check "opencode" opencode --version
+  check "workmux" workmux --version
   check "rtk" rtk --version
   check "rtk gain" rtk gain
   check "agy" agy --version

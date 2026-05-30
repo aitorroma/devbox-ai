@@ -17,7 +17,7 @@ This project is designed to be forked. The safest way to customize it is to add 
 
 The root `devbox.json` is the small `base` profile. Heavier stacks live under `profiles/`:
 
-- `profiles/ai` — Node + Pi/gentle-ai/Codex/Claude/Antigravity CLI/RTK.
+- `profiles/ai` — Node + Pi/gentle-ai/Codex/Claude/OpenCode/Antigravity CLI/Workmux/RTK.
 - `profiles/devops` — infra and operations tools.
 - `profiles/full` — everything.
 

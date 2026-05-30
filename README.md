@@ -23,7 +23,7 @@ Cockpit portable para trabajar por SSH en un VPS con perfiles seleccionables par
 - **Zellij** como workspace persistente
 - **Zsh** con prompt compacto custom
 - **Perfiles** `base`, `ai`, `devops` y `full`
-- **Pi + gentle-ai + Engram**, **Codex CLI**, **Claude Code CLI**, **Antigravity CLI (agy)** y **RTK** solo en perfiles IA
+- **Pi + gentle-ai + Engram**, **Codex CLI**, **Claude Code CLI**, **OpenCode CLI**, **Antigravity CLI (agy)**, **Workmux** y **RTK** solo en perfiles IA
 - Plantillas MCP para **Engram**, **Coolify**, **Context7** y **GitHub**
 
 
@@ -58,7 +58,7 @@ devbox update
 | Perfil | Qué instala | Cuándo usarlo |
 |---|---|---|
 | `base` | Shell/cockpit mínimo: Zellij, Zsh, Neovim, búsqueda, prompt y Python para scripts. | VPS ligero o solo terminal portable. |
-| `ai` | `base` + Node.js + Pi/gentle-ai + Codex + Claude + Antigravity CLI + RTK. | Cockpit IA sin toolpack DevOps pesado. **Recomendado**. |
+| `ai` | `base` + Node.js + Pi/gentle-ai + Codex + Claude + OpenCode + Antigravity CLI + Workmux + RTK. | Cockpit IA sin toolpack DevOps pesado. **Recomendado**. |
 | `devops` | `base` + toolpack DevOps/infra, sin agentes IA. | VPS para operar infra sin CLIs IA. |
 | `full` | `ai` + `devops`. | Quieres absolutamente todo y tienes disco/RAM de sobra. |
 
@@ -161,7 +161,7 @@ zsh-syntax-highlighting python312
 
 ```text
 nodejs@22
-Pi gentle-ai Codex Claude Antigravity CLI (agy) RTK instalados en $HOME
+Pi gentle-ai Codex Claude OpenCode Antigravity CLI (agy) Workmux RTK instalados en $HOME
 ```
 
 ### `devops`
@@ -214,7 +214,10 @@ En perfiles `ai`/`full` también:
 agent         # lanza Pi
 codex         # lanza Codex CLI
 claude        # lanza Claude Code CLI
+opencode      # lanza OpenCode CLI
 agy           # lanza Antigravity CLI
+workmux / wm  # gestiona worktrees/agentes con multiplexer
+wmz           # fuerza backend Zellij para Workmux
 rtk gain      # muestra ahorro acumulado de tokens
 ```
 
@@ -321,11 +324,13 @@ En SSH, `agy` imprime una URL de autorización para completar login localmente. 
 
 ## AI CLIs
 
-Los perfiles `ai`/`full` instalan Pi, gentle-ai, Codex, Claude, Antigravity CLI y RTK. Antigravity se instala desde el instalador oficial de Google y deja el binario `agy` en `$HOME/.local/bin`.
+Los perfiles `ai`/`full` instalan Pi, gentle-ai, Codex, Claude, OpenCode, Antigravity CLI, Workmux y RTK. Antigravity se instala desde el instalador oficial de Google y deja el binario `agy` en `$HOME/.local/bin`. OpenCode se instala vía npm como `opencode-ai`; Workmux se instala en `$HOME/.local/bin`.
 
 ```bash
 codex --version
 claude --version
+opencode --version
+workmux --version
 agy --version
 pi --version
 gentle-ai --version
@@ -335,8 +340,21 @@ Para reinstalarlos/actualizarlos manualmente:
 
 ```bash
 devbox run -c /root/cookpit/profiles/ai -- ai-clis
+devbox run -c /root/cookpit/profiles/ai -- workmux-install
 devbox run -c /root/cookpit/profiles/ai -- antigravity-install
 ```
+
+## Workmux + Zellij
+
+[Workmux](https://workmux.raine.dev/) crea worktrees y abre agentes en tu multiplexer. En este cockpit queda disponible como `workmux` y como alias corto `wm`.
+
+```bash
+wm init                 # opcional: crea .workmux.yaml en un proyecto
+wm add nueva-feature   # crea worktree y ventana/tab de trabajo
+wmz add fix-login      # fuerza WORKMUX_BACKEND=zellij
+```
+
+Según la guía oficial, el backend Zellij de Workmux es experimental y depende de capacidades recientes/no publicadas de Zellij; si falla, actualiza Zellij o usa el backend tmux/otro terminal soportado. Dentro de Zellij, Workmux puede autodetectar el backend por `$ZELLIJ`; `wmz` lo fuerza con `WORKMUX_BACKEND=zellij`.
 
 ## Evitar tabs duplicadas en Zellij
 

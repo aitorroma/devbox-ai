@@ -97,7 +97,10 @@
       "ai-clis": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
       "rtk-install": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
       "profile-info": "../../scripts/profile-info.sh",
-      "antigravity-install": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- antigravity-install' && exit 1"
+      "antigravity-install": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- antigravity-install' && exit 1",
+      "opencode": "echo 'Este perfil no instala agentes IA. Usa: work --profile ia' && exit 1",
+      "workmux-install": "echo 'Este perfil no instala Workmux. Usa: work-update --profile ia' && exit 1",
+      "workmux": "echo 'Este perfil no instala Workmux. Usa: work --profile ia' && exit 1"
     }
   }
 }

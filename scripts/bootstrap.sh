@@ -101,7 +101,7 @@ echo "✅ Cockpit instalado con perfil '$requested'."
 echo "   Config Devbox: $CONFIG_DIR"
 echo "   Comandos disponibles tras recargar shell: work, work-reset, work-update, doctor"
 if [[ "$requested" == "ai" || "$requested" == "full" ]]; then
-  echo "   También: agent, codex, claude, rtk gain"
+  echo "   También: agent, codex, claude, opencode, workmux/wm, rtk gain"
 fi
 echo "👉 Para entrar ahora: devbox run -c '$CONFIG_DIR' -- work-reset"
 if [[ "$requested" == "ai" || "$requested" == "full" ]]; then

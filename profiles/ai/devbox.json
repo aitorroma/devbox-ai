@@ -50,7 +50,10 @@
       "ai-clis": "../../scripts/install-ai-clis.sh",
       "rtk-install": "../../scripts/install-rtk.sh",
       "profile-info": "../../scripts/profile-info.sh",
-      "antigravity-install": "../../scripts/install-antigravity.sh"
+      "antigravity-install": "../../scripts/install-antigravity.sh",
+      "opencode": "opencode",
+      "workmux-install": "../../scripts/install-workmux.sh",
+      "workmux": "workmux"
     }
   }
 }
