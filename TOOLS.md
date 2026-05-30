@@ -63,6 +63,7 @@ Capas de instalación:
 | `make` (`gnumake`) | Automatización clásica de builds/tareas. |
 | `tree` | Ver estructura de carpetas en árbol. |
 | `rsync` | Sincronización/copias incrementales. |
+| `rclone` | Sincronización con storage cloud/remoto: S3, Google Drive, SFTP, etc. |
 | `wget` | Descargar archivos por HTTP/FTP. |
 | `direnv` | Cargar variables de entorno por directorio. |
 
@@ -121,6 +122,14 @@ Capas de instalación:
 | `whois` | Consultas WHOIS de dominios/IPs. |
 | `tcpdump` | Captura de paquetes. |
 | `mtr` | Diagnóstico de rutas/red combinando ping + traceroute. |
+| `ngrok` | Túneles públicos temporales hacia servicios locales/remotos para demos y webhooks. |
+| `tmate` | Sesiones de terminal compartidas por SSH para pairing/debug remoto. |
+
+## Grabación y colaboración (`devops` / `full`)
+
+| Tool | Para qué sirve |
+|---|---|
+| `asciinema` | Graba sesiones de terminal reproducibles para demos/documentación. |
 
 ## Calidad de shell/código (`devops` / `full`)
 
@@ -142,6 +151,10 @@ devbox run -c /root/cookpit/profiles/devops -- ansible --version
 devbox run -c /root/cookpit/profiles/devops -- lazygit --version
 devbox run -c /root/cookpit/profiles/devops -- aws --version
 devbox run -c /root/cookpit/profiles/devops -- gcloud --version
+devbox run -c /root/cookpit/profiles/devops -- rclone --version
+devbox run -c /root/cookpit/profiles/devops -- ngrok --version
+devbox run -c /root/cookpit/profiles/devops -- tmate -V
+devbox run -c /root/cookpit/profiles/devops -- asciinema --version
 devbox run -c /root/cookpit/profiles/devops -- chezmoi --version
 devbox run -c /root/cookpit/profiles/ai -- rtk gain
 devbox run -c /root/cookpit/profiles/ai -- agy --version

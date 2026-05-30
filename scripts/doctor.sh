@@ -73,6 +73,10 @@ if [[ "$DEVOPS" == "1" ]]; then
   check "tree" tree --version
   check_shell "wget" 'wget --version | head -1'
   check_shell "rsync" 'rsync --version | head -1'
+  check "rclone" rclone --version
+  check "ngrok" ngrok --version
+  check "tmate" tmate -V
+  check "asciinema" asciinema --version
   check "openssl" openssl version
   check "age" age --version
   check "sops" sops --version

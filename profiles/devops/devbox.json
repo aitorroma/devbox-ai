@@ -31,6 +31,9 @@
     "tree",
     "wget",
     "rsync",
+    "ngrok",
+    "tmate",
+    "asciinema",
     "openssl",
     "age",
     "sops",
@@ -61,7 +64,8 @@
     "shellcheck",
     "shfmt",
     "chezmoi",
-    "git@latest"
+    "git@latest",
+    "rclone@latest"
   ],
   "env": {
     "NPM_CONFIG_PREFIX": "$HOME/.npm-global"

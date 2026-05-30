@@ -141,7 +141,7 @@ Pi gentle-ai Codex Claude Antigravity CLI (agy) RTK instalados en $HOME
 
 ```text
 jq yq gh lazygit delta chezmoi
-duf btop htop ncdu tree wget rsync openssl
+duf btop htop ncdu tree wget rsync rclone ngrok tmate asciinema openssl
 age sops direnv just make gcc
 python312Packages.pip uv go rustup
 docker-client docker-compose kubernetes-helm kubectl k9s
