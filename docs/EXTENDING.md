@@ -82,15 +82,25 @@ cd profiles/full && devbox update
 - Shell prompt/aliases: edit `config/zsh/zshrc`.
 - Autostart/aliases in login shells: edit `scripts/install-zellij-autostart.sh`.
 
-Apply changes:
+Apply changes with the active profile:
 
 ```bash
-devbox run -c /root/cookpit/profiles/ai -- zsh-install
-devbox run -c /root/cookpit/profiles/ai -- zellij-install
-devbox run -c /root/cookpit/profiles/ai -- work-reset
+work-update
 ```
 
-Run `work-reset` from outside Zellij to avoid duplicate tabs.
+Or force a specific profile:
+
+```bash
+work-update --profile ia
+work-update --profile devops
+work-update --profile full
+```
+
+For layout changes, run from outside Zellij to avoid duplicate tabs:
+
+```bash
+work --profile ia --reset
+```
 
 ## Validation
 
@@ -99,8 +109,9 @@ bash -n scripts/*.sh
 zsh -n config/zsh/zshrc
 for f in devbox.json profiles/*/devbox.json; do python3 -m json.tool "$f" >/dev/null; done
 
-devbox run -c profiles/ai -- profile-info
-devbox run -c profiles/devops -- profile-info
+profile-info
+work --profile ia --help
+work-update --profile devops --help
 ```
 
 ## Recommended fork workflow

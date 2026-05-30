@@ -45,13 +45,21 @@ alias fzfbat='fzf --preview="bat --theme=gruvbox-dark --color=always {}"'
 alias fzfnvim='nvim $(fzf --preview="bat --theme=gruvbox-dark --color=always {}")'
 
 # Cockpit shortcuts
-alias work='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- work'
-alias zwork='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- work'
-alias work-reset='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- work-reset'
+alias work='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work.sh"'
+alias zwork='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work.sh"'
+alias work-reset='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work.sh" --reset'
+alias work-ia='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work.sh" --profile ia'
+alias work-ai='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work.sh" --profile ia'
+alias work-devops='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work.sh" --profile devops'
+alias work-full='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work.sh" --profile full'
 alias agent='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- agent'
 alias doctor='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- doctor'
 alias profile-info='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- profile-info'
-alias work-update='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- work-update'
+alias work-update='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work-update.sh"'
+alias update-ia='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work-update.sh" --profile ia'
+alias update-ai='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work-update.sh" --profile ia'
+alias update-devops='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work-update.sh" --profile devops'
+alias update-full='devbox run -c "$COCKPIT_DEVBOX_CONFIG" -- bash "$COCKPIT_HOME/scripts/work-update.sh" --profile full'
 
 # Clear terminal title inside Zellij panes.
 case "$TERM" in

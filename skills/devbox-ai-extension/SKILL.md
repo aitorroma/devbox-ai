@@ -65,8 +65,9 @@ Scripts from profile directories should call shared scripts with `../../scripts/
 
 ```bash
 # Check current profile wiring
-devbox run -c profiles/ai -- profile-info
-devbox run -c profiles/devops -- profile-info
+profile-info
+work --profile ia --help
+work-update --profile devops --help
 
 # Validate files
 bash -n scripts/*.sh
@@ -77,7 +78,9 @@ for f in devbox.json profiles/*/devbox.json; do python3 -m json.tool "$f" >/dev/
 cd profiles/myprofile && devbox update
 
 # Apply profile on a VPS
-devbox run -c /root/cookpit/profiles/myprofile -- bootstrap
+./scripts/bootstrap.sh --profile ia
+work --profile ia --reset
+work-update --profile full
 ```
 
 ## Fork Adaptation Checklist

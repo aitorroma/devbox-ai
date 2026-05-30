@@ -14,15 +14,23 @@ $MARK_START
 export COCKPIT_HOME="$ROOT"
 export COCKPIT_DEVBOX_CONFIG="$CONFIG_DIR"
 export COCKPIT_PROFILE="$PROFILE"
-alias work='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- work'
-alias work-reset='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- work-reset'
-alias work-update='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- work-update'
+alias work='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work.sh"'
+alias work-reset='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work.sh" --reset'
+alias work-ia='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work.sh" --profile ia'
+alias work-ai='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work.sh" --profile ia'
+alias work-devops='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work.sh" --profile devops'
+alias work-full='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work.sh" --profile full'
+alias work-update='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work-update.sh"'
+alias update-ia='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work-update.sh" --profile ia'
+alias update-ai='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work-update.sh" --profile ia'
+alias update-devops='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work-update.sh" --profile devops'
+alias update-full='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work-update.sh" --profile full'
 alias doctor='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- doctor'
 alias profile-info='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- profile-info'
 if [[ -o interactive ]] && [[ -t 0 ]] && [[ -t 1 ]] && [[ -z "\$ZELLIJ" ]] && [[ -z "\$ZELLIJ_AUTO_STARTED" ]] && [[ -z "\$TMUX" ]] && [[ "\$TERM" != "dumb" ]] && command -v devbox >/dev/null 2>&1 && [[ -d "\$COCKPIT_HOME" ]] && [[ -d "\$COCKPIT_DEVBOX_CONFIG" ]]; then
   export ZELLIJ_AUTO_STARTED=1
   cd "\$COCKPIT_HOME"
-  exec devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- work
+  exec devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work.sh"
 fi
 $MARK_END
 EOF2

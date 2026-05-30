@@ -20,8 +20,22 @@ Perfiles disponibles:
   devops  -> base + herramientas DevOps, sin agentes IA
   full    -> ai + devops
 
-Uso rápido:
-  devbox run -c "$ROOT/profiles/ai" -- bootstrap
-  devbox run -c "$ROOT/profiles/devops" -- bootstrap
-  devbox run -c "$ROOT/profiles/full" -- bootstrap
+Uso diario:
+  work --profile ia        # cambia/arranca cockpit IA
+  work --profile devops    # cambia/arranca cockpit DevOps
+  work --profile full      # cambia/arranca cockpit completo
+
+Actualizar perfil:
+  work-update --profile ia
+  work-update --profile devops
+  work-update --profile full
+
+Bootstrap fresh VPS:
+  ./scripts/bootstrap.sh --profile ia
+  ./scripts/bootstrap.sh --profile devops
+  ./scripts/bootstrap.sh --profile full
+
+Aliases:
+  work-ia | work-devops | work-full
+  update-ia | update-devops | update-full
 INFO

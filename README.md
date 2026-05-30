@@ -56,20 +56,20 @@ git clone https://github.com/aitorroma/devbox-ai.git /root/cookpit
 cd /root/cookpit
 ```
 
-Elige perfil:
+Elige perfil con el instalador rápido:
 
 ```bash
 # IA: cockpit + agentes, sin toolpack DevOps pesado
-devbox run -c /root/cookpit/profiles/ai -- bootstrap
+./scripts/bootstrap.sh --profile ia
 
 # Solo DevOps: cockpit + herramientas infra, sin agentes IA
-devbox run -c /root/cookpit/profiles/devops -- bootstrap
+./scripts/bootstrap.sh --profile devops
 
 # Todo
-devbox run -c /root/cookpit/profiles/full -- bootstrap
+./scripts/bootstrap.sh --profile full
 ```
 
-Atajo: desde la raíz, `devbox run bootstrap` instala el perfil `ai` por defecto.
+Atajos equivalentes: `./scripts/bootstrap.sh ia`, `devbox run bootstrap`, o `devbox run -c /root/cookpit/profiles/ai -- bootstrap`. Desde la raíz, `devbox run bootstrap` instala el perfil `ai` por defecto.
 
 Al terminar, recarga shell o reconecta por SSH:
 
@@ -88,24 +88,36 @@ devbox run -c /root/cookpit/profiles/ai -- gentle-install
 
 ## Cambiar de perfil
 
-Reinstala aliases/autostart con el perfil elegido:
+Para el día a día no hace falta memorizar rutas de Devbox. Lanza el cockpit con el perfil deseado:
 
 ```bash
-# Cambiar a IA
-devbox run -c /root/cookpit/profiles/ai -- bootstrap
-
-# Cambiar a DevOps
-devbox run -c /root/cookpit/profiles/devops -- bootstrap
-
-# Cambiar a full
-devbox run -c /root/cookpit/profiles/full -- bootstrap
+work --profile ia
+work --profile devops
+work --profile full
 ```
 
-Después de cambiar, reconecta por SSH o ejecuta:
+También tienes aliases cortos:
 
 ```bash
-source ~/.bashrc
-work-reset
+work-ia
+work-devops
+work-full
+```
+
+Para actualizar repo + herramientas + aliases de un perfil concreto:
+
+```bash
+work-update --profile ia
+work-update --profile devops
+work-update --profile full
+```
+
+Aliases equivalentes: `update-ia`, `update-devops`, `update-full`.
+
+Si el cambio incluye layout de Zellij, ejecuta fuera de Zellij:
+
+```bash
+work --profile ia --reset
 ```
 
 Ver perfil activo:
@@ -168,11 +180,15 @@ devbox run -c /root/cookpit/profiles/ai -- work-reset
 ## Comandos diarios
 
 ```bash
-work          # abre/adjunta Zellij dev
-work-reset    # recrea la sesión dev y reaplica layout
-work-update   # git pull + reinstala shell/autostart + actualiza perfil activo
-doctor        # verifica herramientas/versiones del perfil activo
-profile-info  # muestra perfil y rutas activas
+work                         # abre/adjunta Zellij dev con el perfil activo
+work --profile ia            # cambia/arranca cockpit IA
+work --profile devops        # cambia/arranca cockpit DevOps
+work --profile full          # cambia/arranca cockpit completo
+work-reset                   # recrea la sesión dev y reaplica layout
+work-update                  # git pull + reinstala shell/autostart + actualiza perfil activo
+work-update --profile full   # actualiza usando otro perfil
+doctor                       # verifica herramientas/versiones del perfil activo
+profile-info                 # muestra perfil y rutas activas
 ```
 
 En perfiles `ai`/`full` también:
@@ -209,7 +225,10 @@ devbox run -c /root/cookpit/profiles/ai -- mcp-render
 ## Actualizar cockpit
 
 ```bash
-work-update
+work-update                  # perfil activo
+work-update --profile ia     # fuerza perfil IA
+work-update --profile devops # fuerza perfil DevOps
+work-update --profile full   # fuerza perfil completo
 ```
 
 Si estás dentro de Zellij y te avisa que no puede matar la sesión actual, sal/reconecta o ejecuta desde fuera con el perfil activo:
