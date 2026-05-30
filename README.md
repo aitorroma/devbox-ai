@@ -6,7 +6,7 @@ Cockpit portable para trabajar por SSH en un VPS con perfiles seleccionables par
 - **Zellij** como workspace persistente
 - **Zsh** con prompt compacto custom
 - **Perfiles** `base`, `ai`, `devops` y `full`
-- **Pi + gentle-ai + Engram**, **Codex CLI**, **Claude Code CLI** y **RTK** solo en perfiles IA
+- **Pi + gentle-ai + Engram**, **Codex CLI**, **Claude Code CLI**, **Antigravity CLI (agy)** y **RTK** solo en perfiles IA
 - Plantillas MCP para **Engram**, **Coolify**, **Context7** y **GitHub**
 
 
@@ -41,7 +41,7 @@ devbox update
 | Perfil | Qué instala | Cuándo usarlo |
 |---|---|---|
 | `base` | Shell/cockpit mínimo: Zellij, Zsh, Neovim, búsqueda, prompt y Python para scripts. | VPS ligero o solo terminal portable. |
-| `ai` | `base` + Node.js + Pi/gentle-ai + Codex + Claude + RTK. | Cockpit IA sin toolpack DevOps pesado. **Recomendado**. |
+| `ai` | `base` + Node.js + Pi/gentle-ai + Codex + Claude + Antigravity CLI + RTK. | Cockpit IA sin toolpack DevOps pesado. **Recomendado**. |
 | `devops` | `base` + toolpack DevOps/infra, sin agentes IA. | VPS para operar infra sin CLIs IA. |
 | `full` | `ai` + `devops`. | Quieres absolutamente todo y tienes disco/RAM de sobra. |
 
@@ -132,7 +132,7 @@ zsh-syntax-highlighting python312
 
 ```text
 nodejs@22
-Pi gentle-ai Codex Claude RTK instalados en $HOME
+Pi gentle-ai Codex Claude Antigravity CLI (agy) RTK instalados en $HOME
 ```
 
 ### `devops`
@@ -181,6 +181,7 @@ En perfiles `ai`/`full` también:
 agent         # lanza Pi
 codex         # lanza Codex CLI
 claude        # lanza Claude Code CLI
+agy           # lanza Antigravity CLI
 rtk gain      # muestra ahorro acumulado de tokens
 ```
 
@@ -266,13 +267,30 @@ Reinstalar/actualizar solo RTK:
 devbox run -c /root/cookpit/profiles/ai -- rtk-install
 ```
 
+## Antigravity CLI
+
+Antigravity CLI (`agy`) entiende el codebase, propone ediciones con permiso y ejecuta comandos desde la terminal. El instalador oficial para macOS/Linux es:
+
+```bash
+curl -fsSL https://antigravity.google/cli/install.sh | bash
+```
+
+En este cockpit se instala de forma portable en `$HOME/.local/bin` con:
+
+```bash
+devbox run -c /root/cookpit/profiles/ai -- antigravity-install
+```
+
+En SSH, `agy` imprime una URL de autorización para completar login localmente. Para cerrar sesión dentro del CLI usa `/logout`.
+
 ## AI CLIs
 
-Los perfiles `ai`/`full` instalan:
+Los perfiles `ai`/`full` instalan Pi, gentle-ai, Codex, Claude, Antigravity CLI y RTK. Antigravity se instala desde el instalador oficial de Google y deja el binario `agy` en `$HOME/.local/bin`.
 
 ```bash
 codex --version
 claude --version
+agy --version
 pi --version
 gentle-ai --version
 ```
@@ -281,6 +299,7 @@ Para reinstalarlos/actualizarlos manualmente:
 
 ```bash
 devbox run -c /root/cookpit/profiles/ai -- ai-clis
+devbox run -c /root/cookpit/profiles/ai -- antigravity-install
 ```
 
 ## Evitar tabs duplicadas en Zellij

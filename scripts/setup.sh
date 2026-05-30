@@ -5,7 +5,7 @@ export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"
 
 if [[ "${COCKPIT_ENABLE_AI:-0}" != "1" ]]; then
-  echo "ℹ️  Perfil ${COCKPIT_PROFILE:-base}: sin agentes IA. Salto Pi/gentle-ai/Codex/Claude/RTK."
+  echo "ℹ️  Perfil ${COCKPIT_PROFILE:-base}: sin agentes IA. Salto Pi/gentle-ai/Codex/Claude/RTK/Antigravity."
   exit 0
 fi
 
@@ -26,6 +26,8 @@ chmod +x "$HOME/.local/bin/gentle-ai"
 "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/install-ai-clis.sh"
 
 "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/install-rtk.sh"
+
+"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/install-antigravity.sh"
 
 echo '✅ Binarios listos.'
 echo 'Siguiente: devbox run gentle-install && devbox run pi-plugins && devbox run mcp-render'

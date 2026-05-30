@@ -77,21 +77,22 @@
       "echo '🚀 VPS cockpit environment ready (full)'"
     ],
     "scripts": {
-      "setup":          "../../scripts/setup.sh",
+      "setup": "../../scripts/setup.sh",
       "gentle-install": "gentle-ai install --agent pi",
-      "pi-plugins":     "../../scripts/install-pi-plugins.sh",
-      "doctor":         "../../scripts/doctor.sh",
-      "agent":          "pi",
-      "mcp-render":     "../../scripts/render-mcp.sh",
+      "pi-plugins": "../../scripts/install-pi-plugins.sh",
+      "doctor": "../../scripts/doctor.sh",
+      "agent": "pi",
+      "mcp-render": "../../scripts/render-mcp.sh",
       "zellij-install": "../../scripts/install-zellij-autostart.sh",
-      "work":           "../../scripts/work.sh",
-      "zsh-install":    "../../scripts/install-zsh.sh",
-      "work-reset":     "../../scripts/work.sh --reset",
-      "work-update":    "../../scripts/work-update.sh",
-      "bootstrap":      "../../scripts/bootstrap.sh",
-      "ai-clis":        "../../scripts/install-ai-clis.sh",
-      "rtk-install":    "../../scripts/install-rtk.sh",
-      "profile-info":   "../../scripts/profile-info.sh"
+      "work": "../../scripts/work.sh",
+      "zsh-install": "../../scripts/install-zsh.sh",
+      "work-reset": "../../scripts/work.sh --reset",
+      "work-update": "../../scripts/work-update.sh",
+      "bootstrap": "../../scripts/bootstrap.sh",
+      "ai-clis": "../../scripts/install-ai-clis.sh",
+      "rtk-install": "../../scripts/install-rtk.sh",
+      "profile-info": "../../scripts/profile-info.sh",
+      "antigravity-install": "../../scripts/install-antigravity.sh"
     }
   }
 }

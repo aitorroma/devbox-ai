@@ -76,21 +76,22 @@
       "echo '🚀 VPS cockpit environment ready (devops)'"
     ],
     "scripts": {
-      "setup":          "../../scripts/setup.sh",
+      "setup": "../../scripts/setup.sh",
       "gentle-install": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
-      "pi-plugins":     "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
-      "doctor":         "../../scripts/doctor.sh",
-      "agent":          "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
-      "mcp-render":     "../../scripts/render-mcp.sh",
+      "pi-plugins": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
+      "doctor": "../../scripts/doctor.sh",
+      "agent": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
+      "mcp-render": "../../scripts/render-mcp.sh",
       "zellij-install": "../../scripts/install-zellij-autostart.sh",
-      "work":           "../../scripts/work.sh",
-      "zsh-install":    "../../scripts/install-zsh.sh",
-      "work-reset":     "../../scripts/work.sh --reset",
-      "work-update":    "../../scripts/work-update.sh",
-      "bootstrap":      "../../scripts/bootstrap.sh",
-      "ai-clis":        "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
-      "rtk-install":    "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
-      "profile-info":   "../../scripts/profile-info.sh"
+      "work": "../../scripts/work.sh",
+      "zsh-install": "../../scripts/install-zsh.sh",
+      "work-reset": "../../scripts/work.sh --reset",
+      "work-update": "../../scripts/work-update.sh",
+      "bootstrap": "../../scripts/bootstrap.sh",
+      "ai-clis": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
+      "rtk-install": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- agent' && exit 1",
+      "profile-info": "../../scripts/profile-info.sh",
+      "antigravity-install": "echo 'Este perfil no instala agentes IA. Usa: devbox run -c profiles/ai -- antigravity-install' && exit 1"
     }
   }
 }

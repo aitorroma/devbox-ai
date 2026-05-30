@@ -34,7 +34,7 @@ Use this skill when the task involves:
 |---|---|
 | Add a lightweight shell tool used by everyone | Add to root `devbox.json` (`base`) and all derived profiles if needed. |
 | Add a heavy DevOps/infra tool | Add to `profiles/devops/devbox.json` and `profiles/full/devbox.json`. |
-| Add an AI/agent tool | Add to `profiles/ai/devbox.json` and `profiles/full/devbox.json`; update `scripts/setup.sh` if installed outside Nix. |
+| Add an AI/agent tool | Add to `profiles/ai/devbox.json` and `profiles/full/devbox.json`; update `scripts/setup.sh` and/or a dedicated installer if installed outside Nix. Example: Antigravity CLI uses `scripts/install-antigravity.sh`. |
 | Add optional team/company stack | Create `profiles/<team>/devbox.json` instead of bloating existing profiles. |
 | Add secrets or tokens | Add placeholder to `.env.example` and render into ignored local config via script. |
 | Change panes/tabs | Edit `config/zellij/layouts/dev.kdl.template`; reset with `work-reset` from outside Zellij. |

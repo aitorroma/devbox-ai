@@ -3,7 +3,7 @@
 Este cockpit instala herramientas en perfiles para ahorrar disco:
 
 - **base**: cockpit/shell mínimo.
-- **ai**: `base` + Node/Pi/gentle-ai/Codex/Claude/RTK.
+- **ai**: `base` + Node/Pi/gentle-ai/Codex/Claude/Antigravity CLI/RTK.
 - **devops**: `base` + herramientas de infra/DevOps, sin agentes IA.
 - **full**: `ai` + `devops`.
 
@@ -11,7 +11,7 @@ Capas de instalación:
 
 - **Devbox/Nix**: herramientas reproducibles del sistema, disponibles dentro de `devbox shell`, `devbox run ...` y el workspace `work`.
 - **npm global en `$HOME/.npm-global`**: CLIs de agentes IA (`pi`, `codex`, `claude`) en perfiles `ai`/`full`.
-- **binarios en `$HOME/.local/bin`**: herramientas externas portables como `rtk` en perfiles `ai`/`full`.
+- **binarios en `$HOME/.local/bin`**: herramientas externas portables como `rtk` y `agy` en perfiles `ai`/`full`.
 
 ## Cockpit y shell
 
@@ -39,6 +39,7 @@ Capas de instalación:
 | `engram` | Memoria persistente del agente vía MCP. Se configura mediante plugins/scripts. |
 | `codex` | OpenAI Codex CLI. |
 | `claude` | Claude Code CLI. |
+| `agy` | Google Antigravity CLI: agente de coding terminal-first para editar codebases y ejecutar comandos con autorización. |
 | `rtk` | Rust Token Killer: proxy/compactador de salida de comandos para reducir tokens enviados al agente. |
 
 ## Git, GitHub y dotfiles (`devops` / `full`, salvo `git` que está en `base`)
@@ -139,4 +140,5 @@ devbox run -c /root/cookpit/profiles/devops -- ansible --version
 devbox run -c /root/cookpit/profiles/devops -- lazygit --version
 devbox run -c /root/cookpit/profiles/devops -- chezmoi --version
 devbox run -c /root/cookpit/profiles/ai -- rtk gain
+devbox run -c /root/cookpit/profiles/ai -- agy --version
 ```

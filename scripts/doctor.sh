@@ -49,6 +49,7 @@ if [[ "$AI" == "1" ]]; then
   check "claude" claude --version
   check "rtk" rtk --version
   check "rtk gain" rtk gain
+  check "agy" agy --version
 else
   echo
   echo "## IA"

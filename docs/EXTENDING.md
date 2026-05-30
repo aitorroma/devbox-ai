@@ -17,7 +17,7 @@ This project is designed to be forked. The safest way to customize it is to add 
 
 The root `devbox.json` is the small `base` profile. Heavier stacks live under `profiles/`:
 
-- `profiles/ai` — Node + Pi/gentle-ai/Codex/Claude/RTK.
+- `profiles/ai` — Node + Pi/gentle-ai/Codex/Claude/Antigravity CLI/RTK.
 - `profiles/devops` — infra and operations tools.
 - `profiles/full` — everything.
 
@@ -56,7 +56,7 @@ Do not replace these with hardcoded paths in forks.
 |---|---|
 | Small shell/cockpit dependency | `devbox.json` and relevant derived profiles. |
 | AI/agent dependency managed by Nix | `profiles/ai/devbox.json` and `profiles/full/devbox.json`. |
-| AI/agent dependency installed by npm/curl | `scripts/setup.sh` or a dedicated script, guarded by `COCKPIT_ENABLE_AI=1`. |
+| AI/agent dependency installed by npm/curl | `scripts/setup.sh` or a dedicated script such as `scripts/install-antigravity.sh`, guarded by `COCKPIT_ENABLE_AI=1`. |
 | DevOps/infra dependency | `profiles/devops/devbox.json` and `profiles/full/devbox.json`. |
 | Team-specific tool | New `profiles/<team>/devbox.json`. |
 

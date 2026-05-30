@@ -18,8 +18,11 @@ if [[ "${COCKPIT_ENABLE_AI:-0}" == "1" ]]; then
 
   echo "🪓 Actualizando RTK..."
   "$ROOT/scripts/install-rtk.sh"
+
+  echo "🛰️  Actualizando Antigravity CLI..."
+  "$ROOT/scripts/install-antigravity.sh"
 else
-  echo "ℹ️  Perfil ${COCKPIT_PROFILE:-base}: salto AI CLIs/RTK."
+  echo "ℹ️  Perfil ${COCKPIT_PROFILE:-base}: salto AI CLIs/RTK/Antigravity."
 fi
 
 echo "🐚 Instalando zsh portable..."
