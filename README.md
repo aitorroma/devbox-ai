@@ -145,7 +145,7 @@ duf btop htop ncdu tree wget rsync openssl
 age sops direnv just make gcc
 python312Packages.pip uv go rustup
 docker-client docker-compose kubernetes-helm kubectl k9s
-terraform opentofu ansible
+terraform opentofu ansible awscli2 google-cloud-sdk
 httpie xh nmap dnsutils whois tcpdump mtr
 pre-commit shellcheck shfmt
 ```

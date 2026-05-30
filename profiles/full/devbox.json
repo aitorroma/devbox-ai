@@ -21,6 +21,8 @@
     "jq",
     "yq",
     "gh",
+    "awscli2@latest",
+    "google-cloud-sdk",
     "lazygit",
     "delta",
     "duf",

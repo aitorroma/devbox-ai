@@ -90,6 +90,8 @@ Capas de instalación:
 | `terraform` | Infraestructura como código de HashiCorp. |
 | `tofu` (`opentofu`) | Fork open-source de Terraform. |
 | `ansible` | Automatización/configuración remota por SSH. |
+| `aws` (`awscli2`) | AWS CLI v2 para operar AWS desde terminal. |
+| `gcloud` (`google-cloud-sdk`) | Google Cloud SDK para GCP: auth, proyectos, IAM, Cloud Run, GKE, etc. |
 
 ## Seguridad, secretos y criptografía (`devops` / `full`)
 
@@ -138,6 +140,8 @@ O checks puntuales:
 ```bash
 devbox run -c /root/cookpit/profiles/devops -- ansible --version
 devbox run -c /root/cookpit/profiles/devops -- lazygit --version
+devbox run -c /root/cookpit/profiles/devops -- aws --version
+devbox run -c /root/cookpit/profiles/devops -- gcloud --version
 devbox run -c /root/cookpit/profiles/devops -- chezmoi --version
 devbox run -c /root/cookpit/profiles/ai -- rtk gain
 devbox run -c /root/cookpit/profiles/ai -- agy --version

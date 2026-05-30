@@ -62,6 +62,8 @@ if [[ "$DEVOPS" == "1" ]]; then
   check "jq" jq --version
   check "yq" yq --version
   check_shell "gh" 'gh --version | head -1'
+  check "aws" aws --version
+  check_shell "gcloud" 'gcloud --version | head -1'
   check "lazygit" lazygit --version
   check "delta" delta --version
   check "duf" duf --version
