@@ -27,10 +27,10 @@ alias update-devops='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_
 alias update-full='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash "\$COCKPIT_HOME/scripts/work-update.sh" --profile full'
 alias doctor='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- doctor'
 alias profile-info='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- profile-info'
-alias opencode='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- opencode'
-alias workmux='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- workmux'
-alias wm='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- workmux'
-alias wmz='devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- env WORKMUX_BACKEND=zellij workmux'
+opencode() { devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash -lc 'opencode "\$@"' _ "\$@"; }
+workmux() { devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- bash -lc 'workmux "\$@"' _ "\$@"; }
+wm() { workmux "\$@"; }
+wmz() { devbox run -c "\$COCKPIT_DEVBOX_CONFIG" -- env WORKMUX_BACKEND=zellij bash -lc 'workmux "\$@"' _ "\$@"; }
 if [[ -o interactive ]] && [[ -t 0 ]] && [[ -t 1 ]] && [[ -z "\$ZELLIJ" ]] && [[ -z "\$ZELLIJ_AUTO_STARTED" ]] && [[ -z "\$TMUX" ]] && [[ "\$TERM" != "dumb" ]] && command -v devbox >/dev/null 2>&1 && [[ -d "\$COCKPIT_HOME" ]] && [[ -d "\$COCKPIT_DEVBOX_CONFIG" ]]; then
   export ZELLIJ_AUTO_STARTED=1
   cd "\$COCKPIT_HOME"
